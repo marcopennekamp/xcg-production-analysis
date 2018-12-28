@@ -9,5 +9,5 @@
         amount: 100
       - wareId: water
         amount: 500
-  comparisons:
+  compareTo:
     - wheat

@@ -10,7 +10,7 @@ import scala.xml.{Node, XML}
 
 object Wares {
   private val wares: mutable.HashMap[Id[Ware], Ware] = mutable.HashMap.empty
-  private val comparisons: mutable.HashMap[Id[Ware], Seq[Id[Ware]]] = mutable.HashMap.empty
+  private val compareTo: mutable.HashMap[Id[Ware], Seq[Id[Ware]]] = mutable.HashMap.empty
 
   private def loadX4Wares(): Unit = {
     val element = XML.loadFile("wares.xml")
@@ -52,12 +52,12 @@ object Wares {
         )
 
         // Then, we add the additional parameters defined only for XCG wares into their respective maps.
-        case class Options(id: Id[Ware], comparisons: List[Id[Ware]])
+        case class Options(id: Id[Ware], compareTo: List[Id[Ware]])
         implicit val optionsDecoder: Decoder[Options] = deriveDecoder[Options]
 
         json.as[List[Options]].fold(
           failure => fail(failure.toString, failure.getCause),
-          options => options.foreach(option => comparisons.put(option.id, option.comparisons))
+          options => options.foreach(option => compareTo.put(option.id, option.compareTo))
         )
     }
   }
@@ -68,5 +68,5 @@ object Wares {
   }
 
   def get(id: Id[Ware]): Option[Ware] = wares.get(id)
-  def comparisons(id: Id[Ware]): Seq[Ware] = comparisons.getOrElse(id, Seq.empty).map(Wares.get).filter(_.isDefined).map(_.get)
+  def compareTo(id: Id[Ware]): Seq[Ware] = compareTo.getOrElse(id, Seq.empty).map(Wares.get).filter(_.isDefined).map(_.get)
 }
