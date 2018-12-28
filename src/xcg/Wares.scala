@@ -68,5 +68,5 @@ object Wares {
   }
 
   def get(id: Id[Ware]): Option[Ware] = wares.get(id)
-  def compareTo(id: Id[Ware]): Seq[Ware] = compareTo.getOrElse(id, Seq.empty).map(Wares.get).filter(_.isDefined).map(_.get)
+  def compareTos(id: Id[Ware]): Seq[Ware] = compareTo.getOrElse(id, Seq.empty).map(Wares.get).filter(_.isDefined).map(_.get)
 }
