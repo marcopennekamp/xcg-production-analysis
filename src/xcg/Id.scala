@@ -1,6 +1,5 @@
 package xcg
 
-import io.circe.Decoder.Result
 import io.circe.{Decoder, HCursor}
 
 /**
