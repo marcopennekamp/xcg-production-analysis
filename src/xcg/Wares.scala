@@ -46,10 +46,10 @@ object Wares {
       case Left(failure) => fail(failure.message, failure.underlying)
       case Right(json) =>
         // First, we load the wares definitions into the general wares directory.
-        /* json.as[List[Ware]].fold(
+        json.as[List[Ware]].fold(
           failure => fail(failure.message, failure.getCause),
           xcgWares => xcgWares.foreach(ware => wares.put(ware.id, ware))
-        ) */
+        )
 
         // Then, we add the additional parameters defined only for XCG wares into their respective maps.
         case class Options(id: Id[Ware], comparisons: List[Id[Ware]])
