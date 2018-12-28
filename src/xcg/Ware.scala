@@ -1,6 +1,17 @@
 package xcg
 
-case class Price(min: Int, average: Int, max: Int)
+case class Price(min: Double, average: Double, max: Double) {
+  def +(price: Price): Price = Price(this.min + price.min, this.average + price.average, this.max + price.max)
+  def -(price: Price): Price = Price(this.min - price.min, this.average - price.average, this.max - price.max)
+  def *(price: Price): Price = Price(this.min * price.min, this.average * price.average, this.max * price.max)
+  def /(price: Price): Price = Price(this.min / price.min, this.average / price.average, this.max / price.max)
+  def *(scalar: Double): Price = this * Price(scalar, scalar, scalar)
+  def /(scalar: Double): Price = this / Price(scalar, scalar, scalar)
+}
+
+object Price {
+  val zero: Price = Price(0, 0, 0)
+}
 
 case class Production(ware: Ware, timeSeconds: Int, amount: Int, resources: Seq[Stack]) {
   lazy val cyclesPerHour: Double = 3600.0 / timeSeconds
