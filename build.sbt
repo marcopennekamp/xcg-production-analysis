@@ -7,7 +7,10 @@ lazy val xcgProductionAnalysis = (project in file("."))
     Seq(
       name := "xcg-production-analysis",
       libraryDependencies ++= Seq(
-        "org.scala-lang.modules" %% "scala-xml" % "1.1.1"
+        "org.scala-lang.modules" %% "scala-xml" % "1.1.1",
+        "io.circe" %% "circe-core" % "0.10.1",
+        "io.circe" %% "circe-generic" % "0.10.1",
+        "io.circe" %% "circe-yaml" % "0.9.0",
       )
     )
   )
