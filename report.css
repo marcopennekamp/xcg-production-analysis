@@ -1,0 +1,31 @@
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    margin: 0;
+    padding: 4px 10px;
+}
+
+th {
+    font-weight: normal;
+    border-bottom: 2px solid black;
+}
+
+th:last-child, td:last-child {
+    border-right: 1px solid black;
+}
+
+tr:last-child th, tr:last-child td {
+    border-bottom: none;
+}
+
+.column-divider {
+    border-right: 1px solid black;
+}
+
+.row-divider {
+    border-bottom: 2px solid black;
+}

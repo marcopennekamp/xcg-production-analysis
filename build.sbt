@@ -11,6 +11,7 @@ lazy val xcgProductionAnalysis = (project in file("."))
         "io.circe" %% "circe-core" % "0.10.1",
         "io.circe" %% "circe-generic" % "0.10.1",
         "io.circe" %% "circe-yaml" % "0.9.0",
+        "com.lihaoyi" %% "scalatags" % "0.6.7",
       )
     )
   )
