@@ -74,7 +74,13 @@ object Production {
   }
 }
 
-case class Ware(id: Id[Ware], volume: Int, price: Price, production: Production)
+case class Ware(id: Id[Ware], volume: Int, price: Price, production: Production) {
+  /**
+    * This field is mainly present to make refactoring easier should we decide to provide a proper
+    * name later (instead of just the ID).
+    */
+  val name: String = id.toString
+}
 
 object Ware {
   implicit val wareDecoder: Decoder[Ware] = (c: HCursor) => {
