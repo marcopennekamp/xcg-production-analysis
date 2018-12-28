@@ -5,8 +5,8 @@ import scalatags.Text.all._
 
 import scala.collection.mutable
 import scala.io.Source
-
 import Formatting._
+import xcg.Layouts._
 
 class ProductionReport(ware: Ware) {
   val comparisons: Seq[Comparison] = Wares.compareTos(ware.id).map(compareTo => Comparison(compareTo, ware))
@@ -49,25 +49,18 @@ case class Comparison(top: Ware, bottom: Ware) {
 
     div(
       h3(s"${top.name} vs. ${bottom.name}"),
-      table(
-        tr(
-          th(cls := "column-divider")(b("Resources")),
-          for (usage <- usages) yield th(usage.resourceTop.ware.name)
-        ),
-        tr(
-          td(cls := "column-divider")(top.name),
-          for (usage <- usages) yield td(usage.resourceTop.amount)
-        ),
-        tr(cls := "row-divider")(
-          td(cls := "column-divider")(bottom.name),
-          for (usage <- usages) yield td(usage.resourceBottom.amount)
-        ),
-        tr(
-          td(cls := "column-divider")("Amount Ratio"),
-          for (usage <- usages) yield td(usage.amountRatio.asRelativePercentage)
-        )
-      )
+      renderResourceTable(usages),
     )
+  }
+
+  private def renderResourceTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
+    ComparisonTableLayout(
+      this, "Resources",
+      for (usage <- usages) yield th(usage.resourceTop.ware.name),
+      for (usage <- usages) yield td(usage.resourceTop.amount),
+      for (usage <- usages) yield td(usage.resourceBottom.amount),
+      "Amount Ratio", for (usage <- usages) yield td(usage.amountRatio.asRelativePercentage)
+    ).render()
   }
 }
 
