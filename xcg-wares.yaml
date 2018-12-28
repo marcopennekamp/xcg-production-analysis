@@ -12,3 +12,18 @@
         amount: 500
   compareTo:
     - wheat
+- id: xcgpreciousmetals
+  name: Precious Metals
+  volume: 4
+  price: { min: 1648, average: 1804, max: 1960 }
+  production:
+    time: 400
+    amount: 35
+    resources:
+      - wareId: energycells
+        amount: 1540
+      - wareId: ore
+        amount: 420
+  compareTo:
+    - refinedmetals
+    - teladianium
