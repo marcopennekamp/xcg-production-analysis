@@ -21,6 +21,7 @@ case class Production(ware: Ware, timeSeconds: Int, amount: Int, resources: Seq[
 
 case class Stack(wareId: Id[Ware], amount: Int) {
   lazy val ware: Ware = Wares.get(wareId).get
+  lazy val value: Price = ware.price * amount
 }
 
 case class Ware(id: Id[Ware], volume: Int, price: Price) {
