@@ -1,0 +1,13 @@
+- id: xcgwood
+  volume: 12
+  price: { min: 88, average: 116, max: 144 }
+  production:
+    time: 1200
+    amount: 600
+    resources:
+      - wareId: energycells
+        amount: 100
+      - wareId: water
+        amount: 500
+  comparisons:
+    - wheat

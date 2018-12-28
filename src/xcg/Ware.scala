@@ -1,5 +1,8 @@
 package xcg
 
+import io.circe.{Decoder, HCursor}
+import io.circe.generic.semiauto._
+
 case class Price(min: Double, average: Double, max: Double) {
   def +(price: Price): Price = Price(this.min + price.min, this.average + price.average, this.max + price.max)
   def -(price: Price): Price = Price(this.min - price.min, this.average - price.average, this.max - price.max)
@@ -11,10 +14,26 @@ case class Price(min: Double, average: Double, max: Double) {
 
 object Price {
   val zero: Price = Price(0, 0, 0)
+  implicit val priceDecoder: Decoder[Price] = deriveDecoder[Price]
 }
 
-case class Production(product: Ware, timeSeconds: Int, amount: Int, resources: Seq[Stack]) {
-  lazy val cyclesPerHour: Double = 3600.0 / timeSeconds
+case class Stack(wareId: Id[Ware], amount: Int) {
+  lazy val ware: Ware = Wares.get(wareId).get
+  lazy val value: Price = ware.price * amount
+  lazy val volume: Double = ware.volume * amount
+}
+
+object Stack {
+  implicit val stackDecoder: Decoder[Stack] = deriveDecoder[Stack]
+}
+
+/**
+  * @param time The production time in seconds.
+  */
+case class Production(productId: Id[Ware], time: Int, amount: Int, resources: Seq[Stack]) {
+  lazy val product: Ware = Wares.get(productId).get
+
+  lazy val cyclesPerHour: Double = 3600.0 / time
   lazy val amountPerHour: Double = amount * cyclesPerHour
   lazy val volumePerHour: Double = product.volume * amountPerHour
 
@@ -31,12 +50,25 @@ case class Production(product: Ware, timeSeconds: Int, amount: Int, resources: S
   lazy val volumeRatio: Double = resourceVolumePerWare / product.volume
 }
 
-case class Stack(wareId: Id[Ware], amount: Int) {
-  lazy val ware: Ware = Wares.get(wareId).get
-  lazy val value: Price = ware.price * amount
-  lazy val volume: Double = ware.volume * amount
+object Production {
+  def productionDecoder(productId: Id[Ware]): Decoder[Production] = (c: HCursor) => {
+    for {
+      time <- c.downField("time").as[Int]
+      amount <- c.downField("amount").as[Int]
+      resources <- c.downField("resources").as[Seq[Stack]]
+    } yield Production(productId, time, amount, resources)
+  }
 }
 
-case class Ware(id: Id[Ware], volume: Int, price: Price) {
-  var production: Option[Production] = None
+case class Ware(id: Id[Ware], volume: Int, price: Price, production: Option[Production])
+
+object Ware {
+  implicit val wareDecoder: Decoder[Ware] = (c: HCursor) => {
+    for {
+      id <- c.downField("id").as[Id[Ware]]
+      volume <- c.downField("volume").as[Int]
+      price <- c.downField("price").as[Price]
+      production <- c.downField("production").as[Production](Production.productionDecoder(id))
+    } yield Ware(id, volume, price, Some(production))
+  }
 }
