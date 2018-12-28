@@ -4,5 +4,10 @@ scalaSource in Compile := baseDirectory.value / "src"
 
 lazy val xcgProductionAnalysis = (project in file("."))
   .settings(
-    name := "xcg-production-analysis"
+    Seq(
+      name := "xcg-production-analysis",
+      libraryDependencies ++= Seq(
+        "org.scala-lang.modules" %% "scala-xml" % "1.1.1"
+      )
+    )
   )
