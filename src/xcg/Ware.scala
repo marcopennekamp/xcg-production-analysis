@@ -74,21 +74,16 @@ object Production {
   }
 }
 
-case class Ware(id: Id[Ware], volume: Int, price: Price, production: Production) {
-  /**
-    * This field is mainly present to make refactoring easier should we decide to provide a proper
-    * name later (instead of just the ID).
-    */
-  val name: String = id.toString
-}
+case class Ware(id: Id[Ware], name: String, volume: Int, price: Price, production: Production)
 
 object Ware {
   implicit val wareDecoder: Decoder[Ware] = (c: HCursor) => {
     for {
       id <- c.downField("id").as[Id[Ware]]
+      name <- c.downField("name").as[String]
       volume <- c.downField("volume").as[Int]
       price <- c.downField("price").as[Price]
       production <- c.downField("production").as[Production](Production.productionDecoder(id))
-    } yield Ware(id, volume, price, production)
+    } yield Ware(id, name, volume, price, production)
   }
 }

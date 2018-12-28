@@ -33,7 +33,10 @@ object Wares {
       // Use an empty production for the few edge cases in which a production is not defined (only mined wares, I think).
       // It's not worth it to handle an Option for a few productions which we will not even access in the code.
       val production = maybeProduction.getOrElse(Production(wareId, 0, 0, Seq.empty))
-      Ware(wareId, (node \@ "volume").toInt, price, production)
+
+      // We can't provide a proper name yet (we'd also need to parse the localisation files), so we'll use the ID
+      // for now.
+      Ware(wareId, name = wareId.value, (node \@ "volume").toInt, price, production)
     }
 
     wareNodes.map(parseWare).foreach(ware => wares.put(ware.id, ware))

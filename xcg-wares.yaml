@@ -1,4 +1,5 @@
 - id: xcgwood
+  name: Wood
   volume: 12
   price: { min: 88, average: 116, max: 144 }
   production:
