@@ -24,12 +24,15 @@ object Wares {
       val wareId = Id[Ware](node \@ "id")
       val priceNode = node \ "price"
       val price = Price((priceNode \@ "min").toInt, (priceNode \@ "average").toInt, (priceNode \@ "max").toInt)
-      val production = (node \ "production").find(_ \@ "method" == "default").map { node =>
+      val maybeProduction = (node \ "production").find(_ \@ "method" == "default").map { node =>
         val resources = ((node \ "primary") \ "ware").map { resourceNode =>
           Stack(Id(resourceNode \@ "ware"), (resourceNode \@ "amount").toInt)
         }
         Production(wareId, (node \@ "time").toInt, (node \@ "amount").toInt, resources)
       }
+      // Use an empty production for the few edge cases in which a production is not defined (only mined wares, I think).
+      // It's not worth it to handle an Option for a few productions which we will not even access in the code.
+      val production = maybeProduction.getOrElse(Production(wareId, 0, 0, Seq.empty))
       Ware(wareId, (node \@ "volume").toInt, price, production)
     }
 

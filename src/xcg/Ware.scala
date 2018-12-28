@@ -74,7 +74,7 @@ object Production {
   }
 }
 
-case class Ware(id: Id[Ware], volume: Int, price: Price, production: Option[Production])
+case class Ware(id: Id[Ware], volume: Int, price: Price, production: Production)
 
 object Ware {
   implicit val wareDecoder: Decoder[Ware] = (c: HCursor) => {
@@ -83,6 +83,6 @@ object Ware {
       volume <- c.downField("volume").as[Int]
       price <- c.downField("price").as[Price]
       production <- c.downField("production").as[Production](Production.productionDecoder(id))
-    } yield Ware(id, volume, price, Some(production))
+    } yield Ware(id, volume, price, production)
   }
 }
