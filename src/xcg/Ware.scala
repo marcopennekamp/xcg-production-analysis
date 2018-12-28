@@ -17,6 +17,9 @@ case class Production(ware: Ware, timeSeconds: Int, amount: Int, resources: Seq[
   lazy val cyclesPerHour: Double = 3600.0 / timeSeconds
   lazy val amountPerHour: Double = amount * cyclesPerHour
   lazy val volumePerHour: Double = ware.volume * amountPerHour
+
+  lazy val costPerWare: Price = resources.map(_.value).fold(Price.zero)(_ + _) / amount
+  lazy val costPerHour: Price = costPerWare * amountPerHour
 }
 
 case class Stack(wareId: Id[Ware], amount: Int) {
