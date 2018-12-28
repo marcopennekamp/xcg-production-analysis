@@ -48,6 +48,20 @@ case class Production(productId: Id[Ware], time: Int, amount: Int, resources: Se
     * the resources have twice the volume of the product.
     */
   lazy val volumeRatio: Double = resourceVolumePerWare / product.volume
+
+  lazy val revenuePerHour: Price = product.price * amountPerHour
+
+  /**
+    * Note that the profit is calculated by (min price - max cost, avg price - avg cost, max price - min cost),
+    * i.e. taking into account minimum and maximum price spans.
+    */
+  lazy val profitPerWare: Price = {
+    val min = product.price.min - costPerWare.max
+    val average = product.price.average - costPerWare.average
+    val max = product.price.max - costPerWare.max
+    Price(min, average, max)
+  }
+  lazy val profitPerHour: Price = profitPerWare * amountPerHour
 }
 
 object Production {
