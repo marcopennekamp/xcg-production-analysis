@@ -4,10 +4,8 @@ import java.io.{File, PrintWriter}
 
 object Main {
   def main(args: Array[String]): Unit = {
+    // Load data from wares.xml and xcg-wares.yaml.
     Wares.load()
-    val production = Wares.get(Id("smartchips")).get.production
-    println(production.costPerWare)
-    println(production.costPerHour)
 
     // Make a new directory, because PrintWriter doesn't.
     new File("reports").mkdir()
