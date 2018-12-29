@@ -10,6 +10,7 @@ import scala.xml.{Node, XML}
 
 object Wares {
   private val wares: mutable.HashMap[Id[Ware], Ware] = mutable.HashMap.empty
+  private val xcgWares: mutable.ArrayBuffer[Ware] = mutable.ArrayBuffer.empty
   private val compareTo: mutable.HashMap[Id[Ware], Seq[Id[Ware]]] = mutable.HashMap.empty
 
   private def loadX4Wares(): Unit = {
@@ -54,7 +55,10 @@ object Wares {
         // First, we load the wares definitions into the general wares directory.
         json.as[List[Ware]].fold(
           failure => fail(failure.message, failure.getCause),
-          xcgWares => xcgWares.foreach(ware => wares.put(ware.id, ware))
+          list => list.foreach { ware =>
+            wares.put(ware.id, ware)
+            xcgWares += ware
+          }
         )
 
         // Then, we add the additional parameters defined only for XCG wares into their respective maps.
@@ -75,4 +79,6 @@ object Wares {
 
   def get(id: Id[Ware]): Option[Ware] = wares.get(id)
   def compareTos(id: Id[Ware]): Seq[Ware] = compareTo.getOrElse(id, Seq.empty).map(Wares.get).filter(_.isDefined).map(_.get)
+
+  def getXCGWares: Seq[Ware] = xcgWares
 }
