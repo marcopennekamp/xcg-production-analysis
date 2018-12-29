@@ -3,7 +3,6 @@ package xcg
 import java.io.{File, PrintWriter}
 
 object Main {
-
   def main(args: Array[String]): Unit = {
     Wares.load()
     val production = Wares.get(Id("smartchips")).get.production
@@ -12,11 +11,14 @@ object Main {
 
     // Make a new directory, because PrintWriter doesn't.
     new File("reports").mkdir()
-    val wood = Wares.get(Id("xcgwood")).get
-    val report = new ProductionReport(wood).render()
-    val writer = new PrintWriter(new File("reports/xcgwood.html"))
-    writer.write(report)
-    writer.close()
-  }
 
+    // Generate a production report for every XCG ware.
+    for (ware <- Wares.getXCGWares) {
+      val report = new ProductionReport(ware).render()
+      val writer = new PrintWriter(new File(s"reports/${ware.id}.html"))
+      writer.write(report)
+      writer.close()
+      println(s"Created production report for ${ware.name}.")
+    }
+  }
 }
