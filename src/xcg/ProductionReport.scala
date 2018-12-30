@@ -93,7 +93,7 @@ case class Comparison(top: Ware, bottom: Ware) {
   }
 
   private def renderProductionTable(): TypedTag[String] = {
-    def productionCells(production: Production): Seq[Modifier] = {
+    def values(production: Production): Seq[Modifier] = {
       Seq(
         td(production.time),
         td(production.cyclesPerHour),
@@ -114,8 +114,8 @@ case class Comparison(top: Ware, bottom: Ware) {
     ComparisonTableLayout(
       this, "Production",
       Seq(th("Time (s)"), th("Cycles / h"), th("Amount / cycle"), th("Amount / h")),
-      productionCells(top.production),
-      productionCells(bottom.production),
+      values(top.production),
+      values(bottom.production),
       "Ratio", ratios(top.production, bottom.production)
     ).render()
   }
