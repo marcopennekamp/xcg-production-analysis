@@ -52,6 +52,7 @@ case class Comparison(top: Ware, bottom: Ware) {
       div(
         renderResourceTable(usages),
         renderResourceCostTable(usages),
+        renderResourceVolumeTable(usages),
       ),
     )
   }
@@ -75,6 +76,16 @@ case class Comparison(top: Ware, bottom: Ware) {
       "Cost Ratio", for (usage <- usages) yield td(usage.averageCostRatio.asRelativePercentage)
     ).render()
   }
+
+  private def renderResourceVolumeTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
+    ComparisonTableLayout(
+      this, "Resource Volume / h",
+      for (usage <- usages) yield th(usage.resourceTop.ware.name),
+      for (usage <- usages) yield td(usage.topVolumePerHour.toInt),
+      for (usage <- usages) yield td(usage.bottomVolumePerHour.toInt),
+      "Volume Ratio", for (usage <- usages) yield td(usage.volumeRatio.asRelativePercentage)
+    ).render()
+  }
 }
 
 case class ResourceUsage(comparison: Comparison, resourceTop: Stack, resourceBottom: Stack) {
@@ -87,4 +98,8 @@ case class ResourceUsage(comparison: Comparison, resourceTop: Stack, resourceBot
   lazy val averageTopCostPerHour: Double = resourceTop.value.average * comparison.top.production.cyclesPerHour
   lazy val averageBottomCostPerHour: Double = resourceBottom.value.average * comparison.bottom.production.cyclesPerHour
   lazy val averageCostRatio: Double = averageBottomCostPerHour / averageTopCostPerHour
+
+  lazy val topVolumePerHour: Double = resourceTop.volume * comparison.top.production.cyclesPerHour
+  lazy val bottomVolumePerHour: Double = resourceBottom.volume * comparison.bottom.production.cyclesPerHour
+  lazy val volumeRatio: Double = bottomVolumePerHour / topVolumePerHour
 }
