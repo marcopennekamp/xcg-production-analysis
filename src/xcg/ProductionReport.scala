@@ -35,24 +35,26 @@ class ProductionReport(ware: Ware) {
 case class Comparison(top: Ware, bottom: Ware) {
   def render(): TypedTag[String] = {
     // Collect ResourceUsages from both ware productions for resource comparisons.
-    val usageMap = mutable.HashMap[Id[Ware], ResourceUsage]()
-    top.production.resources.foreach { stack =>
-      usageMap.put(stack.wareId, ResourceUsage(this, stack, Stack(stack.wareId, 0)))
-    }
-    bottom.production.resources.foreach { stack =>
-      usageMap.get(stack.wareId) match {
-        case None => usageMap.put(stack.wareId, ResourceUsage(this, Stack(stack.wareId, 0), stack))
-        case Some(usage) => usageMap.update(stack.wareId, ResourceUsage(this, usage.resourceTop, stack))
+    val resourceUsages = {
+      val usageMap = mutable.HashMap[Id[Ware], ResourceUsage]()
+      top.production.resources.foreach { stack =>
+        usageMap.put(stack.wareId, ResourceUsage(this, stack, Stack(stack.wareId, 0)))
       }
+      bottom.production.resources.foreach { stack =>
+        usageMap.get(stack.wareId) match {
+          case None => usageMap.put(stack.wareId, ResourceUsage(this, Stack(stack.wareId, 0), stack))
+          case Some(usage) => usageMap.update(stack.wareId, ResourceUsage(this, usage.resourceTop, stack))
+        }
+      }
+      usageMap.values.toSeq
     }
-    val usages = usageMap.values.toSeq
 
     div(
       h3(s"${top.name} vs. ${bottom.name}"),
       div(
-        renderResourceTable(usages),
-        renderResourceCostTable(usages),
-        renderResourceVolumeTable(usages),
+        renderResourceTable(resourceUsages),
+        renderResourceCostTable(resourceUsages),
+        renderResourceVolumeTable(resourceUsages),
       ),
     )
   }
