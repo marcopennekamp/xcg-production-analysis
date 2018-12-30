@@ -56,6 +56,9 @@ case class Comparison(top: Ware, bottom: Ware) {
         renderResourceCostTable(resourceUsages),
         renderResourceVolumeTable(resourceUsages),
       ),
+      div(
+        renderProductionTable(),
+      ),
     )
   }
 
@@ -86,6 +89,34 @@ case class Comparison(top: Ware, bottom: Ware) {
       for (usage <- usages) yield td(usage.topVolumePerHour.toInt),
       for (usage <- usages) yield td(usage.bottomVolumePerHour.toInt),
       "Volume Ratio", for (usage <- usages) yield td(usage.volumeRatio.asRelativePercentage)
+    ).render()
+  }
+
+  private def renderProductionTable(): TypedTag[String] = {
+    def productionCells(production: Production): Seq[Modifier] = {
+      Seq(
+        td(production.time),
+        td(production.cyclesPerHour),
+        td(production.amount),
+        td(production.amountPerHour)
+      )
+    }
+
+    def ratios(top: Production, bottom: Production): Seq[Modifier] = {
+      Seq(
+        td((bottom.time.toDouble / top.time).asRelativePercentage),
+        td("–"),
+        td("–"),
+        td((bottom.amountPerHour / top.amountPerHour).asRelativePercentage),
+      )
+    }
+
+    ComparisonTableLayout(
+      this, "Production",
+      Seq(th("Time (s)"), th("Cycles / h"), th("Amount / cycle"), th("Amount / h")),
+      productionCells(top.production),
+      productionCells(bottom.production),
+      "Ratio", ratios(top.production, bottom.production)
     ).render()
   }
 }
