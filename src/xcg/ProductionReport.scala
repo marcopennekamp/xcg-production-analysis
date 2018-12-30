@@ -72,7 +72,7 @@ case class Comparison(top: Ware, bottom: Ware) {
       for (usage <- usages) yield th(usage.resourceTop.ware.name),
       for (usage <- usages) yield td(usage.averageTopCostPerHour.toInt),
       for (usage <- usages) yield td(usage.averageBottomCostPerHour.toInt),
-      "Amount Ratio", for (usage <- usages) yield td(usage.averageCostRatio.asRelativePercentage)
+      "Cost Ratio", for (usage <- usages) yield td(usage.averageCostRatio.asRelativePercentage)
     ).render()
   }
 }
