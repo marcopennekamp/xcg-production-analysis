@@ -123,12 +123,12 @@ case class Comparison(top: Ware, bottom: Ware) {
   private def renderProductionVolumeTable(): TypedTag[String] = {
     def values(production: Production): Seq[Double] = {
       Seq(production.resourceVolumePerWare, production.product.volume, production.resourceVolumePerHour,
-        production.volumePerHour)
+        production.volumePerHour, production.volumeMultiplier)
     }
 
     ComparisonTableLayout(
       this, "Production Volume",
-      Seq("Res. Vol. / ware", "Vol. / ware", "Res. Vol. / h", "Vol. / h"),
+      Seq("Res. Vol. / ware", "Vol. / ware", "Res. Vol. / h", "Vol. / h", "Multiplier"),
       values(top.production),
       values(bottom.production),
       "Volume Ratio", Some(Seq(2, 3))

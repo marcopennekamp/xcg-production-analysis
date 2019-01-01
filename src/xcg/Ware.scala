@@ -44,10 +44,12 @@ case class Production(productId: Id[Ware], time: Int, amount: Int, resources: Se
   lazy val resourceVolumePerHour: Double = resourceVolumePerWare * amountPerHour
 
   /**
-    * The ratio of resource volume compared to product volume. For example, a ratio of 2.0 would mean that
-    * the resources have twice the volume of the product.
+    * The volume of the output compared to the volume of the input (resources). For example, a multiplier of 2.0 means
+    * that the product output is twice the volume of the input (e.g. when a product is grown, like wheat or wood).
+    * This multiplier is useful to ensure that a product isn't appearing "out of thin air." If the multiplier is above
+    * 1.0, there should be a good reason why the product has more volume than its resources.
     */
-  lazy val volumeRatio: Double = resourceVolumePerWare / product.volume
+  lazy val volumeMultiplier: Double = product.volume / resourceVolumePerWare
 
   lazy val revenuePerHour: Price = product.price * amountPerHour
 
