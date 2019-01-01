@@ -68,6 +68,18 @@ case class Comparison(top: Ware, bottom: Ware) {
         renderProductionTable(),
         renderProductionVolumeTable(),
       ),
+      div(
+        renderPriceMatrix("Cost / ware", _.costPerWare),
+        renderPriceMatrix("Cost / h", _.costPerHour),
+      ),
+      div(
+        renderPriceMatrix("Price / ware", _.product.price),
+        renderPriceMatrix("Revenue / h", _.revenuePerHour),
+      ),
+      div(
+        renderPriceMatrix("Profit / ware", _.profitPerWare),
+        renderPriceMatrix("Profit / h", _.profitPerHour),
+      ),
     )
   }
 
@@ -120,12 +132,14 @@ case class Comparison(top: Ware, bottom: Ware) {
     Layout(this, "Production Volume", columns).render()
   }
 
-  private def renderCostPerWareTable(): TypedTag[String] = {
-    val columns = Seq(
+  def priceColumns(price: Production => Price): Seq[Column] = Seq(
+    cbcr("min", price(_).min),
+    cbcr("avg", price(_).average),
+    cbcr("max", price(_).max),
+  )
 
-    )
-
-    Layout(this, "Cost / ware", columns).render()
+  def renderPriceMatrix(title: String, price: Production => Price): TypedTag[String] = {
+    Layout(this, title, priceColumns(price)).render()
   }
 }
 
