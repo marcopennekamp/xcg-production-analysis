@@ -128,7 +128,7 @@ case class Comparison(top: Ware, bottom: Ware) {
 
     ComparisonTableLayout(
       this, "Production Volume",
-      Seq("Resource Volume / ware", "Volume / ware", "Resource Volume / h", "Volume / h"),
+      Seq("Res. Vol. / ware", "Vol. / ware", "Res. Vol. / h", "Vol. / h"),
       values(top.production),
       values(bottom.production),
       "Volume Ratio", Some(Seq(2, 3))
