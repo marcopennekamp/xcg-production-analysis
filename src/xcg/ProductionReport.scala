@@ -117,7 +117,6 @@ case class Comparison(top: Ware, bottom: Ware) {
   }
 
   private def renderProductionVolumeTable(): TypedTag[String] = {
-    val volume = Some(X4Unit.Volume)
     val columns = Seq(
       cbv("Res. Vol. / ware", _.resourceVolumePerWare, showRatio = false),
       cbv("Vol. / ware", _.product.volume, showRatio = false),
