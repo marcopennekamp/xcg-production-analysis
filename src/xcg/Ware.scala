@@ -34,14 +34,27 @@ case class Production(productId: Id[Ware], time: Int, amount: Int, resources: Se
   lazy val product: Ware = Wares.get(productId).get
 
   lazy val cyclesPerHour: Double = 3600.0 / time
-  lazy val amountPerHour: Double = amount * cyclesPerHour
-  lazy val volumePerHour: Double = product.volume * amountPerHour
 
-  lazy val costPerWare: Price = resources.map(_.value).fold(Price.zero)(_ + _) / amount
-  lazy val costPerHour: Price = costPerWare * amountPerHour
+  // Construction shorthands for TimedMetrics.
+  private def tdm(value: Double) = TimedDoubleMetric(value, amount, cyclesPerHour)
+  private def tpm(value: Price) = TimedPriceMetric(value, amount, cyclesPerHour)
 
-  lazy val resourceVolumePerWare: Double = resources.map(_.volume).sum / amount
-  lazy val resourceVolumePerHour: Double = resourceVolumePerWare * amountPerHour
+  lazy val amountMetric: TimedMetric[Double] = tdm(amount)
+  lazy val volume: TimedMetric[Double] = tdm(product.volume * amount)
+  lazy val resourceVolume: TimedMetric[Double] = tdm(resources.map(_.volume).sum)
+  lazy val cost: TimedMetric[Price] = tpm(resources.map(_.value).fold(Price.zero)(_ + _))
+  lazy val revenue: TimedMetric[Price] = tpm(product.price * amount)
+
+  /**
+    * Note that profit is calculated by (min price - max cost, avg price - avg cost, max price - min cost),
+    * i.e. taking into account minimum and maximum price spans.
+    */
+  lazy val profit: TimedMetric[Price] = tpm {
+    val min = revenue.perCycle.min - cost.perCycle.max
+    val average = revenue.perCycle.average - cost.perCycle.average
+    val max = revenue.perCycle.max - cost.perCycle.min
+    Price(min, average, max)
+  }
 
   /**
     * The volume of the output compared to the volume of the input (resources). For example, a multiplier of 2.0 means
@@ -49,21 +62,7 @@ case class Production(productId: Id[Ware], time: Int, amount: Int, resources: Se
     * This multiplier is useful to ensure that a product isn't appearing "out of thin air." If the multiplier is above
     * 1.0, there should be a good reason why the product has more volume than its resources.
     */
-  lazy val volumeMultiplier: Double = product.volume / resourceVolumePerWare
-
-  lazy val revenuePerHour: Price = product.price * amountPerHour
-
-  /**
-    * Note that the profit is calculated by (min price - max cost, avg price - avg cost, max price - min cost),
-    * i.e. taking into account minimum and maximum price spans.
-    */
-  lazy val profitPerWare: Price = {
-    val min = product.price.min - costPerWare.max
-    val average = product.price.average - costPerWare.average
-    val max = product.price.max - costPerWare.max
-    Price(min, average, max)
-  }
-  lazy val profitPerHour: Price = profitPerWare * amountPerHour
+  lazy val volumeMultiplier: Double = volume.perWare / resourceVolume.perWare
 }
 
 object Production {

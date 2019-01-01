@@ -69,16 +69,16 @@ case class Comparison(top: Ware, bottom: Ware) {
         renderProductionVolumeTable(),
       ),
       div(
-        renderPriceMatrix("Cost / ware", _.costPerWare),
-        renderPriceMatrix("Cost / h", _.costPerHour),
+        renderPriceMatrix("Cost / ware", _.cost.perWare),
+        renderPriceMatrix("Cost / h", _.cost.perHour),
       ),
       div(
-        renderPriceMatrix("Price / ware", _.product.price),
-        renderPriceMatrix("Revenue / h", _.revenuePerHour),
+        renderPriceMatrix("Price / ware", _.revenue.perWare),
+        renderPriceMatrix("Revenue / h", _.revenue.perHour),
       ),
       div(
-        renderPriceMatrix("Profit / ware", _.profitPerWare),
-        renderPriceMatrix("Profit / h", _.profitPerHour),
+        renderPriceMatrix("Profit / ware", _.profit.perWare),
+        renderPriceMatrix("Profit / h", _.profit.perHour),
       ),
     )
   }
@@ -113,8 +113,8 @@ case class Comparison(top: Ware, bottom: Ware) {
     val columns = Seq(
       cb("Time", _.time, unit = Some(X4Unit.Seconds)),
       cb("Cycles / h", _.cyclesPerHour, showRatio = false),
-      cb("Amount / cycle", _.amount, showRatio = false),
-      cb("Amount / h", _.amountPerHour),
+      cb("Amount / cycle", _.amountMetric.perCycle, showRatio = false),
+      cb("Amount / h", _.amountMetric.perHour),
     )
 
     Layout(this, "Production", columns).render()
@@ -122,10 +122,10 @@ case class Comparison(top: Ware, bottom: Ware) {
 
   private def renderProductionVolumeTable(): TypedTag[String] = {
     val columns = Seq(
-      cbv("Res. Vol. / ware", _.resourceVolumePerWare, showRatio = false),
-      cbv("Vol. / ware", _.product.volume, showRatio = false),
-      cbv("Res. Vol. / h", _.resourceVolumePerHour),
-      cbv("Vol. / h", _.volumePerHour),
+      cbv("Res. Vol. / ware", _.resourceVolume.perWare, showRatio = false),
+      cbv("Vol. / ware", _.volume.perWare, showRatio = false),
+      cbv("Res. Vol. / h", _.resourceVolume.perHour),
+      cbv("Vol. / h", _.volume.perHour),
       cb("Multiplier", _.volumeMultiplier, showRatio = false),
     )
 
