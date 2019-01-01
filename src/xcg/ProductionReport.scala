@@ -83,7 +83,7 @@ case class Comparison(top: Ware, bottom: Ware) {
     )
   }
 
-  def usageColumn(usage: ResourceUsage, value: UsageMetrics => Double, showRatio: Boolean = true,
+  def usageColumn(usage: ResourceUsage, value: ResourceUsageMetrics => Double, showRatio: Boolean = true,
     unit: Option[X4Unit] = None
   ): Column = {
     ColumnBuilder(usage.top, usage.bottom)(usage.resourceName, value, showRatio, unit)
@@ -143,20 +143,9 @@ case class Comparison(top: Ware, bottom: Ware) {
   }
 }
 
-/**
-  * Note: The *perWare* metrics are values per PRODUCED ware, not per resource ware.
-  */
-class UsageMetrics(private val production: Production, private val stack: Stack) {
-  private def tdm(value: Double) = TimedDoubleMetric(value, production.amount, production.cyclesPerHour)
-
-  val amount: TimedMetric[Double] = tdm(stack.amount)
-  val averageCost: TimedMetric[Double] = tdm(stack.value.average)
-  val volume: TimedMetric[Double] = tdm(stack.volume)
-}
-
 case class ResourceUsage(comparison: Comparison, resourceTop: Stack, resourceBottom: Stack) {
   lazy val resourceName: String = resourceTop.ware.name
 
-  object top extends UsageMetrics(comparison.top.production, resourceTop)
-  object bottom extends UsageMetrics(comparison.bottom.production, resourceBottom)
+  object top extends ResourceUsageMetrics(comparison.top.production, resourceTop)
+  object bottom extends ResourceUsageMetrics(comparison.bottom.production, resourceBottom)
 }

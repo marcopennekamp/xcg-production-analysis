@@ -88,3 +88,15 @@ object Ware {
     } yield Ware(id, name, volume, price, production)
   }
 }
+
+/**
+  * Resource usage metrics based on production and stack values.
+  * Note: The *perWare* metrics are values per PRODUCED ware, not per resource ware.
+  */
+class ResourceUsageMetrics(private val production: Production, private val stack: Stack) {
+  private def tdm(value: Double) = TimedDoubleMetric(value, production.amount, production.cyclesPerHour)
+
+  val amount: TimedMetric[Double] = tdm(stack.amount)
+  val averageCost: TimedMetric[Double] = tdm(stack.value.average)
+  val volume: TimedMetric[Double] = tdm(stack.volume)
+}
