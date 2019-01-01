@@ -6,7 +6,6 @@ import scalatags.Text.all._
 import scala.collection.mutable
 import scala.io.Source
 import Formatting._
-import xcg.Layouts._
 
 class ProductionReport(ware: Ware) {
   val comparisons: Seq[Comparison] = Wares.compareTos(ware.id).map(compareTo => Comparison(compareTo, ware))
@@ -33,9 +32,11 @@ class ProductionReport(ware: Ware) {
   * @param bottom The 'bottom' ware, usually the XCG ware to analyse.
   */
 case class Comparison(top: Ware, bottom: Ware) {
-  lazy val cb = ComparisonTableColumnBuilder(top.production, bottom.production)
-  lazy val cbcr = ComparisonTableColumnBuilder(top.production, bottom.production, defaultUnit = Some(X4Unit.Credits))
-  lazy val cbv = ComparisonTableColumnBuilder(top.production, bottom.production, defaultUnit = Some(X4Unit.Volume))
+  import xcg.Layouts.ComparisonTable._
+
+  lazy val cb = ColumnBuilder(top.production, bottom.production)
+  lazy val cbcr = ColumnBuilder(top.production, bottom.production, defaultUnit = Some(X4Unit.Credits))
+  lazy val cbv = ColumnBuilder(top.production, bottom.production, defaultUnit = Some(X4Unit.Volume))
 
   def render(): TypedTag[String] = {
     // Collect ResourceUsages from both ware productions for resource comparisons.
@@ -72,37 +73,36 @@ case class Comparison(top: Ware, bottom: Ware) {
 
   private def renderResourceTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
     val columns = usages.map { usage =>
-      ComparisonTableColumn(usage.resourceName, usage.resourceTop.amount, usage.resourceBottom.amount,
-        showRatio = false)
+      Column(usage.resourceName, usage.resourceTop.amount, usage.resourceBottom.amount, showRatio = false)
     }
 
-    ComparisonTableLayout(this, "Resources", columns).render()
+    Layout(this, "Resources", columns).render()
   }
 
   private def renderResourcePerHourTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
     val columns = usages.map { usage =>
-      ComparisonTableColumn(usage.resourceName, usage.topAmountPerHour, usage.bottomAmountPerHour)
+      Column(usage.resourceName, usage.topAmountPerHour, usage.bottomAmountPerHour)
     }
 
-    ComparisonTableLayout(this, "Resources / h", columns).render()
+    Layout(this, "Resources / h", columns).render()
   }
 
   private def renderResourceCostTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
     val columns = usages.map { usage =>
-      ComparisonTableColumn(usage.resourceName, usage.averageTopCostPerHour.truncate,
+      Column(usage.resourceName, usage.averageTopCostPerHour.truncate,
         usage.averageBottomCostPerHour.truncate, unit = Some(X4Unit.Credits))
     }
 
-    ComparisonTableLayout(this, "Resource Costs (avg / h)", columns).render()
+    Layout(this, "Resource Costs (avg / h)", columns).render()
   }
 
   private def renderResourceVolumeTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
     val columns = usages.map { usage =>
-      ComparisonTableColumn(usage.resourceName, usage.topVolumePerHour.truncate,
+      Column(usage.resourceName, usage.topVolumePerHour.truncate,
         usage.bottomVolumePerHour.truncate, unit = Some(X4Unit.Volume))
     }
 
-    ComparisonTableLayout(this, "Resource Volume / h", columns).render()
+    Layout(this, "Resource Volume / h", columns).render()
   }
 
   private def renderProductionTable(): TypedTag[String] = {
@@ -113,7 +113,7 @@ case class Comparison(top: Ware, bottom: Ware) {
       cb("Amount / h", _.amountPerHour),
     )
 
-    ComparisonTableLayout(this, "Production", columns).render()
+    Layout(this, "Production", columns).render()
   }
 
   private def renderProductionVolumeTable(): TypedTag[String] = {
@@ -126,7 +126,7 @@ case class Comparison(top: Ware, bottom: Ware) {
       cb("Multiplier", _.volumeMultiplier, showRatio = false),
     )
 
-    ComparisonTableLayout(this, "Production Volume", columns).render()
+    Layout(this, "Production Volume", columns).render()
   }
 }
 
