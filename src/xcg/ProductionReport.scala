@@ -53,6 +53,9 @@ case class Comparison(top: Ware, bottom: Ware) {
       h3(s"${top.name} vs. ${bottom.name}"),
       div(
         renderResourceTable(resourceUsages),
+        renderResourcePerHourTable(resourceUsages),
+      ),
+      div(
         renderResourceCostTable(resourceUsages),
         renderResourceVolumeTable(resourceUsages),
       ),
@@ -69,6 +72,16 @@ case class Comparison(top: Ware, bottom: Ware) {
       for (usage <- usages) yield th(usage.resourceTop.ware.name),
       for (usage <- usages) yield td(usage.resourceTop.amount),
       for (usage <- usages) yield td(usage.resourceBottom.amount),
+      "–", for (_ <- usages) yield td("–")
+    ).render()
+  }
+
+  private def renderResourcePerHourTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
+    ComparisonTableLayout(
+      this, "Resources / h",
+      for (usage <- usages) yield th(usage.resourceTop.ware.name),
+      for (usage <- usages) yield td(usage.topAmountPerHour),
+      for (usage <- usages) yield td(usage.bottomAmountPerHour),
       "Amount Ratio", for (usage <- usages) yield td(usage.amountRatio.asRelativePercentage)
     ).render()
   }
@@ -151,17 +164,23 @@ case class Comparison(top: Ware, bottom: Ware) {
 }
 
 case class ResourceUsage(comparison: Comparison, resourceTop: Stack, resourceBottom: Stack) {
+  private lazy val topCyclesPerHour = comparison.top.production.cyclesPerHour
+  private lazy val bottomCyclesPerHour = comparison.bottom.production.cyclesPerHour
+
   lazy val amountRatio: Double = {
-    val bottomAmountPerHour = resourceBottom.amount * comparison.bottom.production.cyclesPerHour
-    val topAmountPerHour = resourceTop.amount * comparison.top.production.cyclesPerHour
+    val bottomAmountPerHour = resourceBottom.amount * bottomCyclesPerHour
+    val topAmountPerHour = resourceTop.amount * topCyclesPerHour
     bottomAmountPerHour / topAmountPerHour
   }
 
-  lazy val averageTopCostPerHour: Double = resourceTop.value.average * comparison.top.production.cyclesPerHour
-  lazy val averageBottomCostPerHour: Double = resourceBottom.value.average * comparison.bottom.production.cyclesPerHour
+  lazy val topAmountPerHour: Double = resourceTop.amount * topCyclesPerHour
+  lazy val bottomAmountPerHour: Double = resourceBottom.amount * bottomCyclesPerHour
+
+  lazy val averageTopCostPerHour: Double = resourceTop.value.average * topCyclesPerHour
+  lazy val averageBottomCostPerHour: Double = resourceBottom.value.average * bottomCyclesPerHour
   lazy val averageCostRatio: Double = averageBottomCostPerHour / averageTopCostPerHour
 
-  lazy val topVolumePerHour: Double = resourceTop.volume * comparison.top.production.cyclesPerHour
-  lazy val bottomVolumePerHour: Double = resourceBottom.volume * comparison.bottom.production.cyclesPerHour
+  lazy val topVolumePerHour: Double = resourceTop.volume * topCyclesPerHour
+  lazy val bottomVolumePerHour: Double = resourceBottom.volume * bottomCyclesPerHour
   lazy val volumeRatio: Double = bottomVolumePerHour / topVolumePerHour
 }
