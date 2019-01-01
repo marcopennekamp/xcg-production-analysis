@@ -92,7 +92,8 @@ case class Comparison(top: Ware, bottom: Ware) {
       usages.map(_.resourceTop.ware.name),
       usages.map(_.averageTopCostPerHour.truncate),
       usages.map(_.averageBottomCostPerHour.truncate),
-      restrictRatiosTo = None
+      restrictRatiosTo = None,
+      unit = Some(X4Unit.Credits),
     ).render()
   }
 
@@ -102,7 +103,8 @@ case class Comparison(top: Ware, bottom: Ware) {
       usages.map(_.resourceTop.ware.name),
       usages.map(_.topVolumePerHour.truncate),
       usages.map(_.bottomVolumePerHour.truncate),
-      restrictRatiosTo = None
+      restrictRatiosTo = None,
+      unit = Some(X4Unit.Volume),
     ).render()
   }
 
@@ -116,7 +118,7 @@ case class Comparison(top: Ware, bottom: Ware) {
       Seq("Time (s)", "Cycles / h", "Amount / cycle", "Amount / h"),
       values(top.production),
       values(bottom.production),
-      Some(Seq(0, 3))
+      restrictRatiosTo = Some(Seq(0, 3))
     ).render()
   }
 
@@ -131,7 +133,8 @@ case class Comparison(top: Ware, bottom: Ware) {
       Seq("Res. Vol. / ware", "Vol. / ware", "Res. Vol. / h", "Vol. / h", "Multiplier"),
       values(top.production),
       values(bottom.production),
-      Some(Seq(2, 3))
+      restrictRatiosTo = Some(Seq(2, 3)),
+      unit = Some(X4Unit.Volume),
     ).render()
   }
 }

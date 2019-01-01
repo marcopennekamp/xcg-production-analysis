@@ -14,7 +14,8 @@ object Layouts {
     bottomValues: Seq[Double],
     // Which ratios to calculate and show (as indices from 0 to headers.length, exclusive). If the value is None,
     // all ratios are shown. If the value is the empty sequence, no ratios are shown.
-    restrictRatiosTo: Option[Seq[Int]]
+    restrictRatiosTo: Option[Seq[Int]] = None,
+    unit: Option[X4Unit] = None,
   ) {
     def render(): TypedTag[String] = {
       // Calculate all ratios to be displayed.
@@ -33,11 +34,8 @@ object Layouts {
         * Formats the value in a human-readable fashion.
         */
       def tdValue(value: Double): Modifier = {
-        if (value.isWhole()) {
-          td(value.toInt)
-        } else {
-          td(value.formatRound)
-        }
+        val valueString = if (value.isWhole()) value.toInt.toString else value.formatRound
+        unit.map(unit => td(valueString, " ", unit.toHtml)).getOrElse(td(valueString))
       }
 
       table(
