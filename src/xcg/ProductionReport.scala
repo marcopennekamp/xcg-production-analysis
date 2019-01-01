@@ -100,7 +100,7 @@ case class Comparison(top: Ware, bottom: Ware) {
   }
 
   private def renderResourceCostTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
-    val columns = usages.map(usage => usageColumn(usage, _.averageCost.perHour.truncate, unit = Some(X4Unit.Credits)))
+    val columns = usages.map(usage => usageColumn(usage, _.cost.perHour.average.truncate, unit = Some(X4Unit.Credits)))
     Layout(this, "Resource Costs (avg / h)", columns).render()
   }
 

@@ -95,8 +95,9 @@ object Ware {
   */
 class ResourceUsageMetrics(private val production: Production, private val stack: Stack) {
   private def tdm(value: Double) = TimedDoubleMetric(value, production.amount, production.cyclesPerHour)
+  private def tpm(value: Price) = TimedPriceMetric(value, production.amount, production.cyclesPerHour)
 
   val amount: TimedMetric[Double] = tdm(stack.amount)
-  val averageCost: TimedMetric[Double] = tdm(stack.value.average)
   val volume: TimedMetric[Double] = tdm(stack.volume)
+  val cost: TimedMetric[Price] = tpm(stack.value)
 }
