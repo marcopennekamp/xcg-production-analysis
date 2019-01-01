@@ -140,20 +140,12 @@ case class ResourceUsage(comparison: Comparison, resourceTop: Stack, resourceBot
   private lazy val topCyclesPerHour = comparison.top.production.cyclesPerHour
   private lazy val bottomCyclesPerHour = comparison.bottom.production.cyclesPerHour
 
-  lazy val amountRatio: Double = {
-    val bottomAmountPerHour = resourceBottom.amount * bottomCyclesPerHour
-    val topAmountPerHour = resourceTop.amount * topCyclesPerHour
-    bottomAmountPerHour / topAmountPerHour
-  }
-
   lazy val topAmountPerHour: Double = resourceTop.amount * topCyclesPerHour
   lazy val bottomAmountPerHour: Double = resourceBottom.amount * bottomCyclesPerHour
 
   lazy val averageTopCostPerHour: Double = resourceTop.value.average * topCyclesPerHour
   lazy val averageBottomCostPerHour: Double = resourceBottom.value.average * bottomCyclesPerHour
-  lazy val averageCostRatio: Double = averageBottomCostPerHour / averageTopCostPerHour
 
   lazy val topVolumePerHour: Double = resourceTop.volume * topCyclesPerHour
   lazy val bottomVolumePerHour: Double = resourceBottom.volume * bottomCyclesPerHour
-  lazy val volumeRatio: Double = bottomVolumePerHour / topVolumePerHour
 }
