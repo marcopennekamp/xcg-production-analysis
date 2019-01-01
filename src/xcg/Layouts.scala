@@ -44,7 +44,8 @@ object Layouts {
           * Formats the value in a human-readable fashion.
           */
         def tdValue(value: Double, unit: Option[X4Unit]): Modifier = {
-          val valueString = if (value.isWhole()) value.toInt.toString else value.formatRound
+          val rounded = value.formatRound
+          val valueString = if (rounded.isWhole()) rounded.toInt.toString else rounded.toString
           unit.map(unit => td(valueString, " ", unit.toHtml)).getOrElse(td(valueString))
         }
 

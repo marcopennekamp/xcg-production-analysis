@@ -17,6 +17,6 @@ object Formatting {
       if (d > 1.0) s"+$change" else change
     }
     def truncate: Double = BigDecimal(d).setScale(0, BigDecimal.RoundingMode.HALF_UP).toDouble
-    def formatRound: String = BigDecimal(d).setScale(2, BigDecimal.RoundingMode.HALF_UP).toString
+    def formatRound: BigDecimal = BigDecimal(d).setScale(2, BigDecimal.RoundingMode.HALF_UP)
   }
 }
