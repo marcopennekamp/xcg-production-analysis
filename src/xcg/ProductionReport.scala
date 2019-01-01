@@ -107,7 +107,7 @@ case class Comparison(top: Ware, bottom: Ware) {
 
   private def renderProductionTable(): TypedTag[String] = {
     val columns = Seq(
-      cb("Time (s)", _.time, unit = Some(X4Unit.Seconds)),
+      cb("Time", _.time, unit = Some(X4Unit.Seconds)),
       cb("Cycles / h", _.cyclesPerHour, showRatio = false),
       cb("Amount / cycle", _.amount, showRatio = false),
       cb("Amount / h", _.amountPerHour),
