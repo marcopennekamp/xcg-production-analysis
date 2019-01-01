@@ -90,22 +90,22 @@ case class Comparison(top: Ware, bottom: Ware) {
   }
 
   private def renderResourceTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
-    val columns = usages.map(usage => usageColumn(usage, _.amount, showRatio = false))
+    val columns = usages.map(usage => usageColumn(usage, _.amount.perCycle, showRatio = false))
     Layout(this, "Resources", columns).render()
   }
 
   private def renderResourcePerHourTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
-    val columns = usages.map(usage => usageColumn(usage, _.amountPerHour))
+    val columns = usages.map(usage => usageColumn(usage, _.amount.perHour))
     Layout(this, "Resources / h", columns).render()
   }
 
   private def renderResourceCostTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
-    val columns = usages.map(usage => usageColumn(usage, _.averageCostPerHour.truncate, unit = Some(X4Unit.Credits)))
+    val columns = usages.map(usage => usageColumn(usage, _.averageCost.perHour.truncate, unit = Some(X4Unit.Credits)))
     Layout(this, "Resource Costs (avg / h)", columns).render()
   }
 
   private def renderResourceVolumeTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
-    val columns = usages.map(usage => usageColumn(usage, _.volumePerHour.truncate, unit = Some(X4Unit.Volume)))
+    val columns = usages.map(usage => usageColumn(usage, _.volume.perHour.truncate, unit = Some(X4Unit.Volume)))
     Layout(this, "Resource Volume / h", columns).render()
   }
 
@@ -143,11 +143,15 @@ case class Comparison(top: Ware, bottom: Ware) {
   }
 }
 
+/**
+  * Note: The *perWare* metrics are values per PRODUCED ware, not per resource ware.
+  */
 class UsageMetrics(private val production: Production, private val stack: Stack) {
-  val amount: Double = stack.amount
-  val amountPerHour: Double = stack.amount * production.cyclesPerHour
-  val averageCostPerHour: Double = stack.value.average * production.cyclesPerHour
-  val volumePerHour: Double = stack.volume * production.cyclesPerHour
+  private def tdm(value: Double) = TimedDoubleMetric(value, production.amount, production.cyclesPerHour)
+
+  val amount: TimedMetric[Double] = tdm(stack.amount)
+  val averageCost: TimedMetric[Double] = tdm(stack.value.average)
+  val volume: TimedMetric[Double] = tdm(stack.volume)
 }
 
 case class ResourceUsage(comparison: Comparison, resourceTop: Stack, resourceBottom: Stack) {
