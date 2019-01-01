@@ -72,7 +72,7 @@ case class Comparison(top: Ware, bottom: Ware) {
       usages.map(_.resourceTop.ware.name),
       usages.map(_.resourceTop.amount.toDouble),
       usages.map(_.resourceBottom.amount.toDouble),
-      "–", restrictRatiosTo = Some(Seq.empty)
+      restrictRatiosTo = Some(Seq.empty)
     ).render()
   }
 
@@ -82,7 +82,7 @@ case class Comparison(top: Ware, bottom: Ware) {
       usages.map(_.resourceTop.ware.name),
       usages.map(_.topAmountPerHour),
       usages.map(_.bottomAmountPerHour),
-      "Amount Ratio", restrictRatiosTo = None
+      restrictRatiosTo = None
     ).render()
   }
 
@@ -92,7 +92,7 @@ case class Comparison(top: Ware, bottom: Ware) {
       usages.map(_.resourceTop.ware.name),
       usages.map(_.averageTopCostPerHour.truncate),
       usages.map(_.averageBottomCostPerHour.truncate),
-      "Cost Ratio", restrictRatiosTo = None
+      restrictRatiosTo = None
     ).render()
   }
 
@@ -102,7 +102,7 @@ case class Comparison(top: Ware, bottom: Ware) {
       usages.map(_.resourceTop.ware.name),
       usages.map(_.topVolumePerHour.truncate),
       usages.map(_.bottomVolumePerHour.truncate),
-      "Volume Ratio", restrictRatiosTo = None
+      restrictRatiosTo = None
     ).render()
   }
 
@@ -116,7 +116,7 @@ case class Comparison(top: Ware, bottom: Ware) {
       Seq("Time (s)", "Cycles / h", "Amount / cycle", "Amount / h"),
       values(top.production),
       values(bottom.production),
-      "Ratio", Some(Seq(0, 3))
+      Some(Seq(0, 3))
     ).render()
   }
 
@@ -131,7 +131,7 @@ case class Comparison(top: Ware, bottom: Ware) {
       Seq("Res. Vol. / ware", "Vol. / ware", "Res. Vol. / h", "Vol. / h", "Multiplier"),
       values(top.production),
       values(bottom.production),
-      "Volume Ratio", Some(Seq(2, 3))
+      Some(Seq(2, 3))
     ).render()
   }
 }

@@ -12,7 +12,6 @@ object Layouts {
     headers: Seq[String],
     topValues: Seq[Double],
     bottomValues: Seq[Double],
-    ratioName: String,
     // Which ratios to calculate and show (as indices from 0 to headers.length, exclusive). If the value is None,
     // all ratios are shown. If the value is the empty sequence, no ratios are shown.
     restrictRatiosTo: Option[Seq[Int]]
@@ -27,6 +26,8 @@ object Layouts {
           td("–")
         }
       }
+
+      val ratioName = if (restrictRatiosTo.exists(_.isEmpty)) "–" else "Ratio"
 
       /**
         * Formats the value in a human-readable fashion.
