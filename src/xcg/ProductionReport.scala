@@ -71,37 +71,29 @@ case class Comparison(top: Ware, bottom: Ware) {
     )
   }
 
-  private def renderResourceTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
-    val columns = usages.map { usage =>
-      Column(usage.resourceName, usage.resourceTop.amount, usage.resourceBottom.amount, showRatio = false)
-    }
+  def usageColumn(usage: ResourceUsage, value: UsageMetrics => Double, showRatio: Boolean = true,
+    unit: Option[X4Unit] = None
+  ): Column = {
+    ColumnBuilder(usage.top, usage.bottom)(usage.resourceName, value, showRatio, unit)
+  }
 
+  private def renderResourceTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
+    val columns = usages.map(usage => usageColumn(usage, _.amount, showRatio = false))
     Layout(this, "Resources", columns).render()
   }
 
   private def renderResourcePerHourTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
-    val columns = usages.map { usage =>
-      Column(usage.resourceName, usage.topAmountPerHour, usage.bottomAmountPerHour)
-    }
-
+    val columns = usages.map(usage => usageColumn(usage, _.amountPerHour))
     Layout(this, "Resources / h", columns).render()
   }
 
   private def renderResourceCostTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
-    val columns = usages.map { usage =>
-      Column(usage.resourceName, usage.averageTopCostPerHour.truncate,
-        usage.averageBottomCostPerHour.truncate, unit = Some(X4Unit.Credits))
-    }
-
+    val columns = usages.map(usage => usageColumn(usage, _.averageCostPerHour.truncate, unit = Some(X4Unit.Credits)))
     Layout(this, "Resource Costs (avg / h)", columns).render()
   }
 
   private def renderResourceVolumeTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
-    val columns = usages.map { usage =>
-      Column(usage.resourceName, usage.topVolumePerHour.truncate,
-        usage.bottomVolumePerHour.truncate, unit = Some(X4Unit.Volume))
-    }
-
+    val columns = usages.map(usage => usageColumn(usage, _.volumePerHour.truncate, unit = Some(X4Unit.Volume)))
     Layout(this, "Resource Volume / h", columns).render()
   }
 
@@ -127,20 +119,26 @@ case class Comparison(top: Ware, bottom: Ware) {
 
     Layout(this, "Production Volume", columns).render()
   }
+
+  private def renderCostPerWareTable(): TypedTag[String] = {
+    val columns = Seq(
+
+    )
+
+    Layout(this, "Cost / ware", columns).render()
+  }
+}
+
+class UsageMetrics(private val production: Production, private val stack: Stack) {
+  val amount: Double = stack.amount
+  val amountPerHour: Double = stack.amount * production.cyclesPerHour
+  val averageCostPerHour: Double = stack.value.average * production.cyclesPerHour
+  val volumePerHour: Double = stack.volume * production.cyclesPerHour
 }
 
 case class ResourceUsage(comparison: Comparison, resourceTop: Stack, resourceBottom: Stack) {
   lazy val resourceName: String = resourceTop.ware.name
 
-  private lazy val topCyclesPerHour = comparison.top.production.cyclesPerHour
-  private lazy val bottomCyclesPerHour = comparison.bottom.production.cyclesPerHour
-
-  lazy val topAmountPerHour: Double = resourceTop.amount * topCyclesPerHour
-  lazy val bottomAmountPerHour: Double = resourceBottom.amount * bottomCyclesPerHour
-
-  lazy val averageTopCostPerHour: Double = resourceTop.value.average * topCyclesPerHour
-  lazy val averageBottomCostPerHour: Double = resourceBottom.value.average * bottomCyclesPerHour
-
-  lazy val topVolumePerHour: Double = resourceTop.volume * topCyclesPerHour
-  lazy val bottomVolumePerHour: Double = resourceBottom.volume * bottomCyclesPerHour
+  object top extends UsageMetrics(comparison.top.production, resourceTop)
+  object bottom extends UsageMetrics(comparison.bottom.production, resourceBottom)
 }
