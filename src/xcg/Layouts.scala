@@ -14,10 +14,10 @@ object Layouts {
     unit: Option[X4Unit] = None
   )
 
-  case class ComparisonTableColumnBuilder(private val top: Production, private val bottom: Production,
+  case class ComparisonTableColumnBuilder[A](private val top: A, private val bottom: A,
     private val defaultUnit: Option[X4Unit] = None
   ) {
-    def apply(header: String, value: Production => Double,
+    def apply(header: String, value: A => Double,
       showRatio: Boolean = true, unit: Option[X4Unit] = defaultUnit
     ): ComparisonTableColumn = {
       ComparisonTableColumn(header, value(top), value(bottom), showRatio, unit)
