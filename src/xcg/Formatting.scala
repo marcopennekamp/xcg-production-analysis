@@ -10,7 +10,7 @@ object Formatting {
     instance
   }
 
-  implicit class DoubleAsPercentage(d: Double) {
+  implicit class DoubleTools(d: Double) {
     def asPercentage: String = percentInstance.format(d)
     def asRelativePercentage: String = {
       val change = (d - 1.0).asPercentage

@@ -69,96 +69,69 @@ case class Comparison(top: Ware, bottom: Ware) {
   private def renderResourceTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
     ComparisonTableLayout(
       this, "Resources",
-      for (usage <- usages) yield th(usage.resourceTop.ware.name),
-      for (usage <- usages) yield td(usage.resourceTop.amount),
-      for (usage <- usages) yield td(usage.resourceBottom.amount),
-      "–", for (_ <- usages) yield td("–")
+      usages.map(_.resourceTop.ware.name),
+      usages.map(_.resourceTop.amount.toDouble),
+      usages.map(_.resourceBottom.amount.toDouble),
+      "–", restrictRatiosTo = Some(Seq.empty)
     ).render()
   }
 
   private def renderResourcePerHourTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
     ComparisonTableLayout(
       this, "Resources / h",
-      for (usage <- usages) yield th(usage.resourceTop.ware.name),
-      for (usage <- usages) yield td(usage.topAmountPerHour),
-      for (usage <- usages) yield td(usage.bottomAmountPerHour),
-      "Amount Ratio", for (usage <- usages) yield td(usage.amountRatio.asRelativePercentage)
+      usages.map(_.resourceTop.ware.name),
+      usages.map(_.topAmountPerHour),
+      usages.map(_.bottomAmountPerHour),
+      "Amount Ratio", restrictRatiosTo = None
     ).render()
   }
 
   private def renderResourceCostTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
     ComparisonTableLayout(
       this, "Resource Costs (avg / h)",
-      for (usage <- usages) yield th(usage.resourceTop.ware.name),
-      for (usage <- usages) yield td(usage.averageTopCostPerHour.toInt),
-      for (usage <- usages) yield td(usage.averageBottomCostPerHour.toInt),
-      "Cost Ratio", for (usage <- usages) yield td(usage.averageCostRatio.asRelativePercentage)
+      usages.map(_.resourceTop.ware.name),
+      usages.map(_.averageTopCostPerHour.truncate),
+      usages.map(_.averageBottomCostPerHour.truncate),
+      "Cost Ratio", restrictRatiosTo = None
     ).render()
   }
 
   private def renderResourceVolumeTable(usages: Seq[ResourceUsage]): TypedTag[String] = {
     ComparisonTableLayout(
       this, "Resource Volume / h",
-      for (usage <- usages) yield th(usage.resourceTop.ware.name),
-      for (usage <- usages) yield td(usage.topVolumePerHour.toInt),
-      for (usage <- usages) yield td(usage.bottomVolumePerHour.toInt),
-      "Volume Ratio", for (usage <- usages) yield td(usage.volumeRatio.asRelativePercentage)
+      usages.map(_.resourceTop.ware.name),
+      usages.map(_.topVolumePerHour.truncate),
+      usages.map(_.bottomVolumePerHour.truncate),
+      "Volume Ratio", restrictRatiosTo = None
     ).render()
   }
 
   private def renderProductionTable(): TypedTag[String] = {
-    def values(production: Production): Seq[Modifier] = {
-      Seq(
-        td(production.time),
-        td(production.cyclesPerHour),
-        td(production.amount),
-        td(production.amountPerHour)
-      )
-    }
-
-    def ratios(top: Production, bottom: Production): Seq[Modifier] = {
-      Seq(
-        td((bottom.time.toDouble / top.time).asRelativePercentage),
-        td("–"),
-        td("–"),
-        td((bottom.amountPerHour / top.amountPerHour).asRelativePercentage),
-      )
+    def values(production: Production): Seq[Double] = {
+      Seq(production.time, production.cyclesPerHour, production.amount, production.amountPerHour)
     }
 
     ComparisonTableLayout(
       this, "Production",
-      Seq(th("Time (s)"), th("Cycles / h"), th("Amount / cycle"), th("Amount / h")),
+      Seq("Time (s)", "Cycles / h", "Amount / cycle", "Amount / h"),
       values(top.production),
       values(bottom.production),
-      "Ratio", ratios(top.production, bottom.production)
+      "Ratio", Some(Seq(0, 3))
     ).render()
   }
 
   private def renderProductionVolumeTable(): TypedTag[String] = {
-    def values(production: Production): Seq[Modifier] = {
-      Seq(
-        td(production.resourceVolumePerWare),
-        td(production.resourceVolumePerHour),
-        td(production.product.volume),
-        td(production.volumePerHour)
-      )
-    }
-
-    def ratios(top: Production, bottom: Production): Seq[Modifier] = {
-      Seq(
-        td((bottom.resourceVolumePerWare / top.resourceVolumePerWare).asRelativePercentage),
-        td((bottom.resourceVolumePerHour / top.resourceVolumePerHour).asRelativePercentage),
-        td("–"),
-        td((bottom.volumePerHour / top.volumePerHour).asRelativePercentage),
-      )
+    def values(production: Production): Seq[Double] = {
+      Seq(production.resourceVolumePerWare, production.resourceVolumePerHour, production.product.volume,
+        production.volumePerHour)
     }
 
     ComparisonTableLayout(
       this, "Production Volume",
-      Seq(th("Resource Volume / ware"), th("Resource Volume / h"), th("Volume / ware"), th("Volume / h")),
+      Seq("Resource Volume / ware", "Resource Volume / h", "Volume / ware", "Volume / h"),
       values(top.production),
       values(bottom.production),
-      "Volume Ratio", ratios(top.production, bottom.production)
+      "Volume Ratio", Some(Seq(0, 1, 3))
     ).render()
   }
 }
