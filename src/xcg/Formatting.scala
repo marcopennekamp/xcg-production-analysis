@@ -16,5 +16,7 @@ object Formatting {
       val change = (d - 1.0).asPercentage
       if (d > 1.0) s"+$change" else change
     }
+    def truncate: Double = BigDecimal(d).setScale(0, BigDecimal.RoundingMode.HALF_UP).toDouble
+    def formatRound: String = BigDecimal(d).setScale(2, BigDecimal.RoundingMode.HALF_UP).toString
   }
 }
