@@ -34,6 +34,8 @@ class ProductionReport(ware: Ware) {
   */
 case class Comparison(top: Ware, bottom: Ware) {
   lazy val cb = ComparisonTableColumnBuilder(top.production, bottom.production)
+  lazy val cbcr = ComparisonTableColumnBuilder(top.production, bottom.production, defaultUnit = Some(X4Unit.Credits))
+  lazy val cbv = ComparisonTableColumnBuilder(top.production, bottom.production, defaultUnit = Some(X4Unit.Volume))
 
   def render(): TypedTag[String] = {
     // Collect ResourceUsages from both ware productions for resource comparisons.
@@ -117,10 +119,10 @@ case class Comparison(top: Ware, bottom: Ware) {
   private def renderProductionVolumeTable(): TypedTag[String] = {
     val volume = Some(X4Unit.Volume)
     val columns = Seq(
-      cb("Res. Vol. / ware", _.resourceVolumePerWare, showRatio = false, unit = volume),
-      cb("Vol. / ware", _.product.volume, showRatio = false, unit = volume),
-      cb("Res. Vol. / h", _.resourceVolumePerHour, unit = volume),
-      cb("Vol. / h", _.volumePerHour, unit = volume),
+      cbv("Res. Vol. / ware", _.resourceVolumePerWare, showRatio = false),
+      cbv("Vol. / ware", _.product.volume, showRatio = false),
+      cbv("Res. Vol. / h", _.resourceVolumePerHour),
+      cbv("Vol. / h", _.volumePerHour),
       cb("Multiplier", _.volumeMultiplier, showRatio = false),
     )
 
