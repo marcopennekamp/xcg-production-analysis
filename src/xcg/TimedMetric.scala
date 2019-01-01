@@ -15,6 +15,12 @@ case class TimedDoubleMetric(value: Double, productionAmount: Int, cyclesPerHour
   override val perHour: Double = perCycle * cyclesPerHour
 }
 
+object TimedDoubleMetric {
+  def constructor(production: Production): Double => TimedDoubleMetric = {
+    value => TimedDoubleMetric(value, production.amount, production.cyclesPerHour)
+  }
+}
+
 /**
   * @param productionAmount The amount produced per cycle.
   */
@@ -22,4 +28,10 @@ case class TimedPriceMetric(value: Price, productionAmount: Int, cyclesPerHour: 
   override val perCycle: Price = value
   override val perWare: Price = perCycle / productionAmount
   override val perHour: Price = perCycle * cyclesPerHour
+}
+
+object TimedPriceMetric {
+  def constructor(production: Production): Price => TimedPriceMetric = {
+    value => TimedPriceMetric(value, production.amount, production.cyclesPerHour)
+  }
 }

@@ -36,8 +36,8 @@ case class Production(productId: Id[Ware], time: Int, amount: Int, resources: Se
   lazy val cyclesPerHour: Double = 3600.0 / time
 
   // Construction shorthands for TimedMetrics.
-  private def tdm(value: Double) = TimedDoubleMetric(value, amount, cyclesPerHour)
-  private def tpm(value: Price) = TimedPriceMetric(value, amount, cyclesPerHour)
+  private val tdm = TimedDoubleMetric.constructor(this)
+  private val tpm = TimedPriceMetric.constructor(this)
 
   lazy val amountMetric: TimedMetric[Double] = tdm(amount)
   lazy val volume: TimedMetric[Double] = tdm(product.volume * amount)
@@ -94,8 +94,8 @@ object Ware {
   * Note: The *perWare* metrics are values per PRODUCED ware, not per resource ware.
   */
 class ResourceUsageMetrics(private val production: Production, private val stack: Stack) {
-  private def tdm(value: Double) = TimedDoubleMetric(value, production.amount, production.cyclesPerHour)
-  private def tpm(value: Price) = TimedPriceMetric(value, production.amount, production.cyclesPerHour)
+  private val tdm = TimedDoubleMetric.constructor(production)
+  private val tpm = TimedPriceMetric.constructor(production)
 
   val amount: TimedMetric[Double] = tdm(stack.amount)
   val volume: TimedMetric[Double] = tdm(stack.volume)
