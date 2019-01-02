@@ -33,7 +33,7 @@ object Layouts {
       def render(): TypedTag[String] = {
         val ratioName = if (columns.exists(_.showRatio)) "Ratio" else "–"
         val ratios = columns.map { column =>
-          if (column.showRatio) {
+          if (column.showRatio && !(column.top ~== 0) && !(column.bottom ~== 0)) {
             td((column.bottom / column.top).asRelativePercentage)
           } else {
             td("–")
