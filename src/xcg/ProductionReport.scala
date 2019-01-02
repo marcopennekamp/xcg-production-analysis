@@ -5,7 +5,7 @@ import scalatags.Text.all._
 
 import scala.collection.mutable
 import scala.io.Source
-import Formatting._
+import Utils._
 
 class ProductionReport(ware: Ware) {
   val comparisons: Seq[Comparison] = Wares.compareTos(ware.id).map(compareTo => Comparison(compareTo, ware))

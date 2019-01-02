@@ -3,7 +3,7 @@ package xcg
 import scalatags.Text._
 import scalatags.Text.all._
 
-import Formatting._
+import Utils._
 
 object Layouts {
   object ComparisonTable {

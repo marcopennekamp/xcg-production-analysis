@@ -2,7 +2,7 @@ package xcg
 
 import java.text.NumberFormat
 
-object Formatting {
+object Utils {
   private val percentInstance = {
     val instance = NumberFormat.getPercentInstance
     instance.setMinimumFractionDigits(1)
