@@ -77,7 +77,13 @@ object Wares {
     loadXCGWares()
   }
 
-  def get(id: Id[Ware]): Option[Ware] = wares.get(id)
+  def get(id: Id[Ware]): Option[Ware] = {
+    val opt = wares.get(id)
+    if (opt.isEmpty) {
+      println(s"Can't find ware $id.")
+    }
+    opt
+  }
   def compareTos(id: Id[Ware]): Seq[Ware] = compareTo.getOrElse(id, Seq.empty).map(Wares.get).filter(_.isDefined).map(_.get)
 
   def getXCGWares: Seq[Ware] = xcgWares
