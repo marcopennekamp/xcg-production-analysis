@@ -27,3 +27,17 @@
   compareTo:
     - refinedmetals
     - teladianium
+- id: xcgglass
+  name: Glass
+  volume: 12
+  price: { min: 159, average: 192, max: 225 }
+  production:
+    time: 300
+    amount: 300
+    resources:
+      - wareId: energycells
+        amount: 240
+      - wareId: silicon
+        amount: 360
+  compareTo:
+    - siliconwafers
