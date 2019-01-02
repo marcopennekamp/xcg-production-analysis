@@ -123,9 +123,9 @@ case class Comparison(top: Ware, bottom: Ware) {
   private def renderProductionVolumeTable(): TypedTag[String] = {
     val columns = Seq(
       cbv("Res. Vol. / ware", _.resourceVolume.perWare, showRatio = false),
-      cbv("Vol. / ware", _.volume.perWare, showRatio = false),
+      cbv("Prod. Vol. / ware", _.volume.perWare, showRatio = false),
       cbv("Res. Vol. / h", _.resourceVolume.perHour),
-      cbv("Vol. / h", _.volume.perHour),
+      cbv("Prod. Vol. / h", _.volume.perHour),
       cb("Multiplier", _.volumeMultiplier, showRatio = false),
     )
 
