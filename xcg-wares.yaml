@@ -41,3 +41,18 @@
         amount: 360
   compareTo:
     - siliconwafers
+- id: xcgfiber
+  name: Fiber
+  volume: 3
+  price: { min: 79, average: 91, max: 103 }
+  production:
+    time: 120
+    amount: 140
+    resources:
+      - wareId: energycells
+        amount: 60
+      - wareId: xcgwood
+        amount: 80
+  compareTo:
+    - refinedmetals
+    - foodrations
