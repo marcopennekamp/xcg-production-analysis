@@ -18,5 +18,6 @@ object Utils {
     }
     def truncate: Double = BigDecimal(d).setScale(0, BigDecimal.RoundingMode.HALF_UP).toDouble
     def formatRound: BigDecimal = BigDecimal(d).setScale(2, BigDecimal.RoundingMode.HALF_UP)
+    def ~==(d2: Double): Boolean = (d - d2).abs < 0.000001
   }
 }
