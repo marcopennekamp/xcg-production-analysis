@@ -57,6 +57,14 @@ object Wares {
           failure => fail(failure.message, failure.getCause),
           list => list.foreach { ware =>
             wares.put(ware.id, ware)
+
+            // Check that the average price is approximately the average of the min and max price.
+            // This catches input errors in the yaml, while still allowing to specify a custom average price.
+            val idealAverage = (ware.price.min + ware.price.max) / 2
+            if ((idealAverage - ware.price.average).abs > 0.5) {
+              println(s"Warning: Incorrect average price for ${ware.name}. It should be ${idealAverage.round}.")
+            }
+
             xcgWares += ware
           }
         )
