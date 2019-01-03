@@ -109,10 +109,12 @@
         amount: 450
   compareTo:
     - microchips
+# Dyes are not as profitable as other intermediate wares, because they're used in the
+# production of another intermediate ware. We don't want to inflate profits too much.
 - id: xcgdyes
   name: Dyes
   volume: 8
-  price: { min: 675, average: 750, max: 825 }
+  price: { min: 715, average: 750, max: 785 }
   production:
     time: 600
     amount: 150
