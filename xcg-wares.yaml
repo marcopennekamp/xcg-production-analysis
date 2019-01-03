@@ -133,7 +133,7 @@
 - id: xcgpaint
   name: Paint
   volume: 4
-  price: { min: 325, average: 388, max: 451 }
+  price: { min: 390, average: 425, max: 460 }
   production:
     time: 1200
     amount: 380
