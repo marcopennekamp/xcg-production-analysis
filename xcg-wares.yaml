@@ -95,3 +95,17 @@
   compareTo:
     - microchips
     - advancedcomposites
+- id: xcgcloth
+  name: Cloth
+  volume: 9
+  price: { min: 477, average: 566, max: 655 }
+  production:
+    time: 450
+    amount: 150
+    resources:
+      - wareId: energycells
+        amount: 120
+      - wareId: xcgfiber
+        amount: 450
+  compareTo:
+    - microchips
