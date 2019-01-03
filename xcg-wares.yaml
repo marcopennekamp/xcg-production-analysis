@@ -77,3 +77,20 @@
   compareTo:
     - antimattercells
     - refinedmetals
+- id: xcgscreens
+  name: Screens
+  volume: 24
+  price: { min: 1467, average: 1637, max: 1807 }
+  production:
+    time: 600
+    amount: 80
+    resources:
+      - wareId: energycells
+        amount: 50
+      - wareId: xcgglass
+        amount: 150
+      - wareId: claytronics
+        amount: 8
+  compareTo:
+    - microchips
+    - advancedcomposites
