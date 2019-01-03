@@ -109,3 +109,19 @@
         amount: 450
   compareTo:
     - microchips
+- id: xcgdyes
+  name: Dyes
+  volume: 8
+  price: { min: 675, average: 750, max: 825 }
+  production:
+    time: 600
+    amount: 150
+    resources:
+      - wareId: energycells
+        amount: 35
+      - wareId: spices
+        amount: 120
+      - wareId: xcgchemicals
+        amount: 210
+  compareTo:
+    - microchips
