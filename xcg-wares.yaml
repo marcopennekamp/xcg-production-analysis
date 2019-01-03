@@ -146,3 +146,23 @@
         amount: 80
   compareTo:
     - microchips
+- id: xcgfurniture
+  name: Furniture
+  volume: 20
+  price: { min: 595, average: 751, max: 907 }
+  production:
+    time: 450
+    amount: 100
+    resources:
+      - wareId: energycells
+        amount: 50
+      - wareId: refinedmetals
+        amount: 120
+      - wareId: xcgwood
+        amount: 120
+      - wareId: xcgglass
+        amount: 15
+      - wareId: xcgcloth
+        amount: 15
+  compareTo:
+    - antimatterconverters
