@@ -166,3 +166,21 @@
         amount: 15
   compareTo:
     - antimatterconverters
+- id: xcgclothing
+  name: Clothing
+  volume: 9
+  price: { min: 1092, average: 1302, max: 1512 }
+  production:
+    time: 300
+    amount: 80
+    resources:
+      - wareId: energycells
+        amount: 45
+      - wareId: xcgcloth
+        amount: 90
+      - wareId: graphene
+        amount: 10
+      - wareId: xcgdyes
+        amount: 10
+  compareTo:
+    - xcgfurniture
