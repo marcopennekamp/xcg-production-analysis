@@ -56,3 +56,24 @@
   compareTo:
     - refinedmetals
     - foodrations
+- id: xcgchemicals
+  name: Chemicals
+  volume: 5
+  price: { min: 340, average: 381, max: 422 }
+  production:
+    time: 1200
+    amount: 700
+    resources:
+      - wareId: energycells
+        amount: 1200
+      - wareId: methane
+        amount: 720
+      - wareId: hydrogen
+        amount: 540
+      - wareId: ice
+        amount: 2700
+      - wareId: ore
+        amount: 870
+  compareTo:
+    - antimattercells
+    - refinedmetals
