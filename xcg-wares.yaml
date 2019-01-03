@@ -127,3 +127,22 @@
         amount: 210
   compareTo:
     - microchips
+# Quite honestly there is no existing ware to compare paint to. It's an intermediate ware
+# made with two intermediate wares. Similarly to dyes, profitability is low, so that prices
+# don't inflate further down the production chain.
+- id: xcgpaint
+  name: Paint
+  volume: 4
+  price: { min: 325, average: 388, max: 451 }
+  production:
+    time: 1200
+    amount: 380
+    resources:
+      - wareId: energycells
+        amount: 20
+      - wareId: sunriseflowers
+        amount: 400
+      - wareId: xcgdyes
+        amount: 80
+  compareTo:
+    - microchips
