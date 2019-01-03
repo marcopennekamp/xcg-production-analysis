@@ -1,4 +1,4 @@
-- id: xcgwood
+- id: xcg_wood
   name: Wood
   volume: 12
   price: { min: 88, average: 116, max: 144 }
@@ -12,7 +12,7 @@
         amount: 500
   compareTo:
     - wheat
-- id: xcgpreciousmetals
+- id: xcg_preciousmetals
   name: Precious Metals
   volume: 4
   price: { min: 1648, average: 1804, max: 1960 }
@@ -27,7 +27,7 @@
   compareTo:
     - refinedmetals
     - teladianium
-- id: xcgglass
+- id: xcg_glass
   name: Glass
   volume: 12
   price: { min: 159, average: 192, max: 225 }
@@ -41,7 +41,7 @@
         amount: 360
   compareTo:
     - siliconwafers
-- id: xcgfiber
+- id: xcg_fiber
   name: Fiber
   volume: 3
   price: { min: 77, average: 90, max: 103 }
@@ -51,13 +51,13 @@
     resources:
       - wareId: energycells
         amount: 60
-      - wareId: xcgwood
+      - wareId: xcg_wood
         amount: 80
   compareTo:
     - refinedmetals
     - siliconwafers
     - spices
-- id: xcgchemicals
+- id: xcg_chemicals
   name: Chemicals
   volume: 5
   price: { min: 340, average: 381, max: 422 }
@@ -78,7 +78,7 @@
   compareTo:
     - antimattercells
     - refinedmetals
-- id: xcgscreens
+- id: xcg_screens
   name: Screens
   volume: 24
   price: { min: 1467, average: 1637, max: 1807 }
@@ -88,14 +88,14 @@
     resources:
       - wareId: energycells
         amount: 50
-      - wareId: xcgglass
+      - wareId: xcg_glass
         amount: 150
       - wareId: claytronics
         amount: 8
   compareTo:
     - microchips
     - advancedcomposites
-- id: xcgcloth
+- id: xcg_cloth
   name: Cloth
   volume: 9
   price: { min: 477, average: 566, max: 655 }
@@ -105,13 +105,13 @@
     resources:
       - wareId: energycells
         amount: 120
-      - wareId: xcgfiber
+      - wareId: xcg_fiber
         amount: 450
   compareTo:
     - microchips
 # Dyes are not as profitable as other intermediate wares, because they're used in the
 # production of another intermediate ware. We don't want to inflate profits too much.
-- id: xcgdyes
+- id: xcg_dyes
   name: Dyes
   volume: 8
   price: { min: 715, average: 750, max: 785 }
@@ -123,14 +123,14 @@
         amount: 35
       - wareId: spices
         amount: 120
-      - wareId: xcgchemicals
+      - wareId: xcg_chemicals
         amount: 210
   compareTo:
     - microchips
 # Quite honestly there is no existing ware to compare paint to. It's an intermediate ware
 # made with two intermediate wares. Similarly to dyes, profitability is low, so that prices
 # don't inflate further down the production chain.
-- id: xcgpaint
+- id: xcg_paint
   name: Paint
   volume: 4
   price: { min: 390, average: 425, max: 460 }
@@ -142,11 +142,11 @@
         amount: 20
       - wareId: sunriseflowers
         amount: 400
-      - wareId: xcgdyes
+      - wareId: xcg_dyes
         amount: 80
   compareTo:
     - microchips
-- id: xcgfurniture
+- id: xcg_furniture
   name: Furniture
   volume: 20
   price: { min: 595, average: 751, max: 907 }
@@ -158,15 +158,15 @@
         amount: 50
       - wareId: refinedmetals
         amount: 120
-      - wareId: xcgwood
+      - wareId: xcg_wood
         amount: 120
-      - wareId: xcgglass
+      - wareId: xcg_glass
         amount: 15
-      - wareId: xcgcloth
+      - wareId: xcg_cloth
         amount: 15
   compareTo:
     - antimatterconverters
-- id: xcgclothing
+- id: xcg_clothing
   name: Clothing
   volume: 9
   price: { min: 1092, average: 1302, max: 1512 }
@@ -176,15 +176,15 @@
     resources:
       - wareId: energycells
         amount: 45
-      - wareId: xcgcloth
+      - wareId: xcg_cloth
         amount: 90
       - wareId: graphene
         amount: 10
-      - wareId: xcgdyes
+      - wareId: xcg_dyes
         amount: 10
   compareTo:
-    - xcgfurniture
-- id: xcgdecoration
+    - xcg_furniture
+- id: xcg_decoration
   name: Decoration
   volume: 4
   price: { min: 449, average: 512, max: 575 }
@@ -194,11 +194,11 @@
     resources:
       - wareId: energycells
         amount: 25
-      - wareId: xcgwood
+      - wareId: xcg_wood
         amount: 30
-      - wareId: xcgglass
+      - wareId: xcg_glass
         amount: 30
-      - wareId: xcgpreciousmetals
+      - wareId: xcg_preciousmetals
         amount: 7
   # Why compare it to smart chips? Decoration is entirely produced from
   # refined (not intermediate) resources. Smart chips are the only other
