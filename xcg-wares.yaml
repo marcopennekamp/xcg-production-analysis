@@ -44,10 +44,10 @@
 - id: xcgfiber
   name: Fiber
   volume: 3
-  price: { min: 79, average: 91, max: 103 }
+  price: { min: 77, average: 90, max: 103 }
   production:
     time: 120
-    amount: 140
+    amount: 150
     resources:
       - wareId: energycells
         amount: 60
@@ -55,7 +55,8 @@
         amount: 80
   compareTo:
     - refinedmetals
-    - foodrations
+    - siliconwafers
+    - spices
 - id: xcgchemicals
   name: Chemicals
   volume: 5
