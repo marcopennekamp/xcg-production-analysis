@@ -184,3 +184,24 @@
         amount: 10
   compareTo:
     - xcgfurniture
+- id: xcgdecoration
+  name: Decoration
+  volume: 4
+  price: { min: 449, average: 512, max: 575 }
+  production:
+    time: 600
+    amount: 100
+    resources:
+      - wareId: energycells
+        amount: 25
+      - wareId: xcgwood
+        amount: 30
+      - wareId: xcgglass
+        amount: 30
+      - wareId: xcgpreciousmetals
+        amount: 7
+  # Why compare it to smart chips? Decoration is entirely produced from
+  # refined (not intermediate) resources. Smart chips are the only other
+  # end product with the same input schema.
+  compareTo:
+    - smartchips
