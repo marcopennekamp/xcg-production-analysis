@@ -109,8 +109,8 @@
         amount: 450
   compareTo:
     - microchips
-# Dyes are not as profitable as other intermediate wares, because they're used in the
-# production of another intermediate ware. We don't want to inflate profits too much.
+# Dyes are not as profitable as other intermediate wares, because they're used in the production of another intermediate
+# ware. We don't want to inflate profits too much.
 - id: xcg_dyes
   name: Dyes
   volume: 8
@@ -127,9 +127,8 @@
         amount: 210
   compareTo:
     - microchips
-# Quite honestly there is no existing ware to compare paint to. It's an intermediate ware
-# made with two intermediate wares. Similarly to dyes, profitability is low, so that prices
-# don't inflate further down the production chain.
+# Quite honestly there is no existing ware to compare paint to. It's an intermediate ware made with two intermediate
+# wares. Similarly to dyes, profitability is low, so that prices don't inflate further down the production chain.
 - id: xcg_paint
   name: Paint
   volume: 4
@@ -184,6 +183,8 @@
         amount: 10
   compareTo:
     - xcg_furniture
+# Why compare decoration to smart chips? Decoration is entirely produced from refined (not intermediate) resources.
+# Smart chips are the only other end product with the same input schema.
 - id: xcg_decoration
   name: Decoration
   volume: 4
@@ -200,8 +201,29 @@
         amount: 30
       - wareId: xcg_preciousmetals
         amount: 7
-  # Why compare it to smart chips? Decoration is entirely produced from
-  # refined (not intermediate) resources. Smart chips are the only other
-  # end product with the same input schema.
   compareTo:
     - smartchips
+# The price of appliances has relatively small deviations from the average compared to furniture, because it's a useful
+# good and not as subject to "stylistic" changes as furniture (this is lore reasoning, of course). The volume is quite
+# high per ware, because appliances are bulky.
+- id: xcg_appliances
+  name: Appliances
+  volume: 32
+  price: { min: 1598, average: 1789, max: 1980 }
+  production:
+    time: 900
+    amount: 100
+    resources:
+      - wareId: energycells
+        amount: 300
+      - wareId: refinedmetals
+        amount: 300
+      - wareId: xcg_glass
+        amount: 150
+      - wareId: superfluidcoolant
+        amount: 25
+      - wareId: microchips
+        amount: 15
+  compareTo:
+    - antimatterconverters
+    - xcg_furniture
