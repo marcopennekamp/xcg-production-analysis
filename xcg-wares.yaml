@@ -248,3 +248,25 @@
   compareTo:
     - medicalsupplies
     - weaponcomponents
+# Pets have a profit margin of 3x. In turn, they take a lot of time to "produce", the module blueprint costs more and
+# pet production requires a license.
+- id: xcg_pets
+  name: Pets
+  volume: 4
+  price: { min: 2359, average: 3022, max: 3685 }
+  production:
+    time: 7200
+    amount: 300
+    resources:
+      - wareId: energycells
+        amount: 2400
+      - wareId: wheat
+        amount: 2400
+      - wareId: meat
+        amount: 1600
+      - wareId: medicalsupplies
+        amount: 150
+  compareTo:
+    - medicalsupplies
+    - foodrations
+    - xcg_furniture
