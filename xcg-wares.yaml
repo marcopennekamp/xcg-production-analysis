@@ -227,3 +227,24 @@
   compareTo:
     - antimatterconverters
     - xcg_furniture
+- id: xcg_hygienesupplies
+  name: Hygiene Supplies
+  volume: 4
+  price: { min: 250, average: 311, max: 372 }
+  production:
+    time: 450
+    amount: 160
+    resources:
+      - wareId: energycells
+        amount: 20
+      - wareId: water
+        amount: 50
+      - wareId: sunriseflowers
+        amount: 50
+      - wareId: xcg_cloth
+        amount: 15
+      - wareId: xcg_chemicals
+        amount: 10
+  compareTo:
+    - medicalsupplies
+    - weaponcomponents
