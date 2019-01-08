@@ -309,3 +309,27 @@
   compareTo:
     - claytronics
     - xcg_jewelry
+# A steady supply of limited-edition AGI-generated avant-garde sculptures, paintings, etc.
+# The long production time is due to the runtime of the AGI, which needs to analyse current
+# culture and artspace to come up with a fitting product.
+# The production has a high profitability, but is very expensive to build (due to the AGI).
+# It also needs a dedicated solar array to keep the AGI running.
+- id: xcg_art
+  name: Art
+  volume: 10
+  price: { min: 45030, average: 52915, max: 60800 }
+  production:
+    time: 10800
+    amount: 100
+    resources:
+      - wareId: energycells
+        amount: 36000
+      - wareId: xcg_paint
+        amount: 200
+      - wareId: xcg_cloth
+        amount: 200
+      - wareId: claytronics
+        amount: 300
+  compareTo:
+    - claytronics
+    - xcg_pets
