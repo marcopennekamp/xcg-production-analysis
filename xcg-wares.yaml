@@ -12,6 +12,8 @@
         amount: 500
   compareTo:
     - wheat
+# The production uses lots of energy due to electrolysis. The module has an expensive license and is expensive to build,
+# because of very specialised machines, increasing revenue compared to other ore-consuming modules.
 - id: xcg_preciousmetals
   name: Precious Metals
   volume: 4
@@ -39,6 +41,7 @@
         amount: 240
       - wareId: silicon
         amount: 360
+  # Glass production is balanced pretty much in line with Silicon Wafers.
   compareTo:
     - siliconwafers
 - id: xcg_fiber
@@ -53,10 +56,24 @@
         amount: 60
       - wareId: xcg_wood
         amount: 80
+  # Fiber is a hard one to balance, because no other existing production fits its input/output structure (single ware,
+  # sourced from a ware refined from asteroids/gas, as input with an output that is not an end product). We may have to
+  # change these numbers down the line, if we (or our users!) think Fiber production is over- or underpowered. For now,
+  # Fiber is a bit more profitable than Refined Metals, but not as profitable as Spices.
   compareTo:
     - refinedmetals
     - siliconwafers
     - spices
+# Chemicals are mostly extracted from impurities in the ice and ore. Chemicals revenue and profits surpass even
+# Antimatter Cells, because:
+# - The station owner has to mine for 4 resources simultaneously, making production more complicated and restricting
+#   efficient station placement.
+# - The resource volume is twice that of Antimatter Cells, which means more miners have to be bought to supply a
+#   Chemicals production module.
+# - While production volume is only ⅙ of Antimatter Cells (meaning transporting Chemicals should be easier), this
+#   advantage does not counteract the increased amount of miners that have to be acquired.
+# Because of these points, the blueprint should cost as much as that of Antimatter Cell production, while Chemicals
+# are more profitable than Antimatter Cells.
 - id: xcg_chemicals
   name: Chemicals
   volume: 5
@@ -78,6 +95,7 @@
   compareTo:
     - antimattercells
     - refinedmetals
+# Screens have a high volume, because they must be packed especially secure due to their fragility.
 - id: xcg_screens
   name: Screens
   volume: 24
@@ -127,8 +145,7 @@
         amount: 210
   compareTo:
     - microchips
-# Quite honestly there is no existing ware to compare paint to. It's an intermediate ware made with two intermediate
-# wares. Similarly to dyes, profitability is low, so that prices don't inflate further down the production chain.
+# Mixing the paint takes a long time (hence the 20 minutes production time), but doesn’t use a lot of energy.
 - id: xcg_paint
   name: Paint
   volume: 4
@@ -143,6 +160,8 @@
         amount: 400
       - wareId: xcg_dyes
         amount: 80
+  # Quite honestly there is no existing ware to compare paint to. It's an intermediate ware made with two intermediate
+  # wares. Similarly to dyes, profitability is low, so that prices don't inflate further down the production chain.
   compareTo:
     - microchips
 - id: xcg_furniture
@@ -183,8 +202,6 @@
         amount: 10
   compareTo:
     - xcg_furniture
-# Why compare decoration to smart chips? Decoration is entirely produced from refined (not intermediate) resources.
-# Smart chips are the only other end product with the same input schema.
 - id: xcg_decoration
   name: Decoration
   volume: 4
@@ -201,6 +218,8 @@
         amount: 30
       - wareId: xcg_preciousmetals
         amount: 7
+  # Why compare decoration to smart chips? Decoration is entirely produced from refined (not intermediate) resources.
+  # Smart chips are the only other end product with the same input schema.
   compareTo:
     - smartchips
 # The price of appliances has relatively small deviations from the average compared to furniture, because it's a useful
@@ -248,7 +267,7 @@
   compareTo:
     - medicalsupplies
     - weaponcomponents
-# Pets have a profit margin of 3x. In turn, they take a lot of time to "produce", the module blueprint costs more and
+# Pets have a markup of 3x. In turn, they take a lot of time to "produce", the module blueprint costs more and
 # pet production requires a license.
 - id: xcg_pets
   name: Pets
@@ -270,6 +289,8 @@
     - medicalsupplies
     - foodrations
     - xcg_furniture
+# The Graphene is compacted into diamonds and other gemstones at such high temperatures that the process requires
+# relatively high amounts of energy and a constant supply of Superfluid Coolant.
 - id: xcg_jewelry
   name: Jewelry
   volume: 2
