@@ -41,7 +41,8 @@ case class Production(productId: Id[Ware], time: Int, amount: Int, resources: Se
 
   lazy val amountMetric: TimedMetric[Double] = tdm(amount)
   lazy val volume: TimedMetric[Double] = tdm(product.volume * amount)
-  lazy val resourceVolume: TimedMetric[Double] = tdm(resources.map(_.volume).sum)
+  // Excludes energy cells!
+  lazy val resourceVolume: TimedMetric[Double] = tdm(resources.filterNot(_.wareId == Id("energycells")).map(_.volume).sum)
   lazy val cost: TimedMetric[Price] = tpm(resources.map(_.value).fold(Price.zero)(_ + _))
   lazy val revenue: TimedMetric[Price] = tpm(product.price * amount)
 
