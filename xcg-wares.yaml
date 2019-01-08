@@ -270,3 +270,21 @@
     - medicalsupplies
     - foodrations
     - xcg_furniture
+- id: xcg_jewelry
+  name: Jewelry
+  volume: 2
+  price: { min: 6302, average: 7644, max: 8985 }
+  production:
+    time: 600
+    amount: 50
+    resources:
+      - wareId: energycells
+        amount: 500
+      - wareId: xcg_preciousmetals
+        amount: 100
+      - wareId: graphene
+        amount: 200
+      - wareId: superfluidcoolant
+        amount: 20
+  compareTo:
+    - claytronics
