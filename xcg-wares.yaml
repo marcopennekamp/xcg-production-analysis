@@ -288,3 +288,24 @@
         amount: 20
   compareTo:
     - claytronics
+- id: xcg_computers
+  name: Computers
+  volume: 22
+  price: { min: 1828, average: 1914, max: 1999 }
+  production:
+    time: 900
+    amount: 320
+    resources:
+      - wareId: energycells
+        amount: 200
+      - wareId: microchips
+        amount: 125
+      - wareId: xcg_screens
+        amount: 75
+      - wareId: refinedmetals
+        amount: 270
+      - wareId: superfluidcoolant
+        amount: 30
+  compareTo:
+    - claytronics
+    - xcg_jewelry
