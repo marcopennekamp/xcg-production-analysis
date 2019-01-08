@@ -79,7 +79,7 @@ case class Comparison(top: Ware, bottom: Ware) {
       div(
         renderPriceMatrix("Profit / ware", _.profit.perWare),
         renderPriceMatrix("Profit / h", _.profit.perHour),
-        Layout(this, "Cost Multiplier", Seq(
+        Layout(this, "Markup", Seq(
           cb("min", p => p.revenue.perWare.min / p.cost.perWare.min, showRatio = false),
           cb("avg", p => p.revenue.perWare.average / p.cost.perWare.average, showRatio = false),
           cb("max", p => p.revenue.perWare.max / p.cost.perWare.max, showRatio = false),
