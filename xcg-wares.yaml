@@ -287,13 +287,13 @@
     amount: 300
     resources:
       - wareId: energycells
-        amount: 2400
+        amount: 3000
       - wareId: wheat
         amount: 2400
       - wareId: meat
         amount: 1600
       - wareId: medicalsupplies
-        amount: 150
+        amount: 145
   compareTo:
     - medicalsupplies
     - foodrations
