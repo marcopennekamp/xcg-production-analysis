@@ -136,17 +136,17 @@
   price: { min: 715, average: 750, max: 785 }
   production:
     time: 600
-    amount: 160
+    amount: 165
     resources:
       - wareId: energycells
-        amount: 60
-      - wareId: spices
         amount: 100
+      - wareId: spices
+        amount: 120
       - wareId: xcg_chemicals
-        amount: 210
+        amount: 200
   # Dyes are not as profitable as other intermediate wares, because they're used in the production of another
   # intermediate ware. We don't want to inflate profits too much.
-  # However, Dyes AND Paint taken together have an average markup of a combined ~2.10. This is slightly better, but
+  # However, Dyes AND Paint taken together have an average markup of a combined ~2.25. This is slightly better, but
   # still consistent with Microchip production.
   compareTo:
     - microchips
@@ -165,7 +165,7 @@
         amount: 400
       - wareId: xcg_dyes
         amount: 80
-  # Consult the compareTo comment for Dyes above. The combined average markup of Dyes and Paint is ~2.10.
+  # Consult the compareTo comment for Dyes above. The combined average markup of Dyes and Paint is ~2.25.
   compareTo:
     - microchips
 - id: xcg_furniture
