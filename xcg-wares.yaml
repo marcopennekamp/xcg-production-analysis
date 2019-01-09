@@ -453,7 +453,43 @@
         amount: 100
       - wareId: xcg_pets
         amount: 5
-  # Nothing to compare it to, we'll just use a dummy object. The markup of Consumer Goods is constant across min,
-  # average and max, because the packaging adds a constant markup (1.15) independent of the product prices.
+  # Nothing to compare it to, so we'll cheat and compare it to Luxury Goods. The markup of Consumer Goods is constant
+  # across min, average and max, because the packaging adds a constant markup (1.15) independent of the product prices.
   compareTo:
     - refinedmetals
+- id: xcg_luxurygoods
+  name: Luxury Goods
+  volume: 28
+  price: { min: 6385, average: 7225, max: 8065 }
+  description:
+    Hey, there, it's Zon! A few years ago, I was at a point with Ramazon where our growth was STAGNATING. We still had
+    a 100% year-over-year growth, of course I'm amazing, but it was a low point from our 140% growth of the previous
+    year. I was looking at a Waffly mural spraypainted on the hull parts of an Argon Prime station. In utmost
+    concentration, I contemplated vividly, and then it came to me. People want art. People want to be dazzled with
+    jewelry! They want to experience the latest hologame on their industry-ready computers. They want space cars! And
+    finger lasers, man, those finger lasers! Why hadn't I thought about it before? Ramazon the luxury company! So I set
+    out and designed a derivative of my extremely successful and masterfully designed Consumer Goods package. What you
+    are looking at is the Luxury Goods package. It's more pricey, of course, but it's not like those habitat workforce
+    sheep are strapped for cash. They don't even need to pay rent, hah! So RAM A ZON and get rich! (With this package,
+    we charge a 50% profit fee, because I honestly think my AMAZING idea should be worth half of your warehouse profits!
+    And as always, you won't even notice it.)
+  production:
+    time: 600
+    amount: 30
+    resources:
+      - wareId: energycells
+        amount: 40
+      - wareId: xcg_jewelry
+        amount: 5
+      - wareId: xcg_computers
+        amount: 10
+      - wareId: xcg_art
+        amount: 1
+      - wareId: xcg_fingerlasers
+        amount: 10
+      - wareId: xcg_passengertransports
+        amount: 2
+  # We're cheating again, let's compare it to Consumer Goods! The markup is constant, like with Consumer Goods, but a
+  # bit worse, because Mr. Zon takes 50% instead of 30% of your profits. This leads to a 1.10 markup.
+  compareTo:
+    - xcg_consumergoods
