@@ -428,7 +428,7 @@
 - id: xcg_consumergoods
   name: Consumer Goods
   volume: 12
-  price: { min: 995, average: 1203, max: 1410 }
+  price: { min: 992, average: 1201, max: 1410 }
   description:
     Hey, there, it's Zon! You're reading the description of my specially designed goods package. I'm incredibly proud of
     it! We achieved near-perfect levels of packaging compactibility (less than 15% overhead) while providing 110%-safe
