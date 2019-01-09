@@ -10,6 +10,7 @@
         amount: 100
       - wareId: water
         amount: 500
+  # Wood production is balanced in line with Wheat.
   compareTo:
     - wheat
 # The production uses lots of energy due to electrolysis. The module has an expensive license and is expensive to build,
@@ -19,13 +20,13 @@
   volume: 4
   price: { min: 1648, average: 1804, max: 1960 }
   production:
-    time: 400
-    amount: 35
+    time: 1200
+    amount: 100
     resources:
       - wareId: energycells
-        amount: 1540
+        amount: 4600
       - wareId: ore
-        amount: 420
+        amount: 1300
   compareTo:
     - refinedmetals
     - teladianium
@@ -41,7 +42,7 @@
         amount: 240
       - wareId: silicon
         amount: 360
-  # Glass production is balanced pretty much in line with Silicon Wafers.
+  # Glass production is balanced in line with Silicon Wafers.
   compareTo:
     - siliconwafers
 - id: xcg_fiber
