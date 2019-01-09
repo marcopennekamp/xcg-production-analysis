@@ -185,6 +185,7 @@
         amount: 15
       - wareId: xcg_cloth
         amount: 15
+  # Balanced in line with Antimatter Converters (~1.70 average markup)
   compareTo:
     - antimatterconverters
 - id: xcg_clothing
@@ -203,6 +204,7 @@
         amount: 10
       - wareId: xcg_dyes
         amount: 10
+  # Balanced in line with Furniture (1.71 average markup)
   compareTo:
     - xcg_furniture
 - id: xcg_decoration
@@ -222,7 +224,7 @@
       - wareId: xcg_preciousmetals
         amount: 7
   # Why compare decoration to smart chips? Decoration is entirely produced from refined (not intermediate) resources.
-  # Smart chips are the only other end product with the same input schema.
+  # Smart chips are the only other end product with the same input schema. The average markup is 2.30 in both cases.
   compareTo:
     - smartchips
 # The price of appliances has relatively small deviations from the average compared to furniture, because it's a useful
