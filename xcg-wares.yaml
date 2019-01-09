@@ -130,22 +130,24 @@
   # Cloth production is balanced in line with Microchips (2.0 average markup).
   compareTo:
     - microchips
-# Dyes are not as profitable as other intermediate wares, because they're used in the production of another intermediate
-# ware. We don't want to inflate profits too much.
 - id: xcg_dyes
   name: Dyes
-  volume: 8
+  volume: 6
   price: { min: 715, average: 750, max: 785 }
   production:
     time: 600
-    amount: 150
+    amount: 160
     resources:
       - wareId: energycells
-        amount: 35
+        amount: 60
       - wareId: spices
-        amount: 120
+        amount: 100
       - wareId: xcg_chemicals
         amount: 210
+  # Dyes are not as profitable as other intermediate wares, because they're used in the production of another
+  # intermediate ware. We don't want to inflate profits too much.
+  # However, Dyes AND Paint taken together have an average markup of a combined ~2.10. This is slightly better, but
+  # still consistent with Microchip production.
   compareTo:
     - microchips
 # Mixing the paint takes a long time (hence the 20 minutes production time), but doesn’t use a lot of energy.
@@ -155,7 +157,7 @@
   price: { min: 390, average: 425, max: 460 }
   production:
     time: 1200
-    amount: 380
+    amount: 400
     resources:
       - wareId: energycells
         amount: 20
@@ -163,8 +165,7 @@
         amount: 400
       - wareId: xcg_dyes
         amount: 80
-  # Quite honestly there is no existing ware to compare paint to. It's an intermediate ware made with two intermediate
-  # wares. Similarly to dyes, profitability is low, so that prices don't inflate further down the production chain.
+  # Consult the compareTo comment for Dyes above. The combined average markup of Dyes and Paint is ~2.10.
   compareTo:
     - microchips
 - id: xcg_furniture
