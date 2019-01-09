@@ -74,14 +74,14 @@
 # - While production volume is only ⅙ of Antimatter Cells (meaning transporting Chemicals should be easier), this
 #   advantage does not counteract the increased amount of miners that have to be acquired.
 # Because of these points, the blueprint should cost as much as that of Antimatter Cell production, while Chemicals
-# are more profitable than Antimatter Cells.
+# are more profitable than Antimatter Cells (1.30 markup instead of 1.10).
 - id: xcg_chemicals
   name: Chemicals
   volume: 5
   price: { min: 340, average: 381, max: 422 }
   production:
     time: 1200
-    amount: 700
+    amount: 715
     resources:
       - wareId: energycells
         amount: 1200
