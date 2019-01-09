@@ -395,6 +395,13 @@
   name: Passenger Transports
   volume: 250
   price: { min: 36720, average: 39049, max: 41378 }
+  description:
+    These astonishingly efficient Passenger Transports are the pride of every habitat family man. They connect directly
+    to an AGI network which empowers the next-gen autopilot of this comfortable craft. Created by magnanimous
+    entrepreneur and product designer Whittaker Ford, his simple and quite frankly boring design can be unexplicably
+    found in almost every habitat hangar. It's a fucking space car, alright? It gets you from A to B, yadda yadda. It's
+    affordable and won't require a piloting license. There. Just buy it already. Man, I really have no idea why I took
+    this copywriting job.
   production:
     time: 60
     amount: 1
