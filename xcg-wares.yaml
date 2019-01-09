@@ -433,6 +433,8 @@
     time: 600
     amount: 150
     resources:
+      - wareId: energycells
+        amount: 200
       - wareId: xcg_furniture
         amount: 20
       - wareId: xcg_clothing
@@ -444,9 +446,8 @@
       - wareId: xcg_hygienesupplies
         amount: 100
       - wareId: xcg_pets
-        amount: 2
+        amount: 5
   # Nothing to compare it to, we'll just use a dummy object. The markup of Consumer Goods is constant across min,
-  # average and max, because the packaging adds a constant markup independent of the product prices. The markup is a
-  # constant 1.25.
+  # average and max, because the packaging adds a constant markup (1.15) independent of the product prices.
   compareTo:
     - refinedmetals
