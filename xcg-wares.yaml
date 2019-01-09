@@ -373,7 +373,7 @@
     Designed by Microcorp to be an ultra-portable self-defense device, Finger Lasers come in packs of four, perfect for
     one hand armed to the nines or dual-wielding double-shot pistols. Strap on these lasers, activate them and shoot
     that cheating bastard in the foot! Buy the rainbow pack or single-color packs. Lasers come in red, green, blue,
-    yellow, black and white. Custom paint options available at select retail stores. Also popular as extra high-tech
+    yellow, black and white. Custom texture options available at select retail stores. Also popular as extra-high-tech
     nail extensions!
   production:
     time: 600
@@ -429,6 +429,12 @@
   name: Consumer Goods
   volume: 12
   price: { min: 995, average: 1203, max: 1410 }
+  description:
+    Hey, there, it's Zon! You're reading the description of my specially designed goods package. I'm incredibly proud of
+    it! We achieved near-perfect levels of packaging compactibility (less than 15% overhead) while providing 110%-safe
+    product protection. Habitats will gobble this up, so bring it to them and RAM A ZON! (We're not liable if you ram
+    the station instead!) Of course, we charge a 30% profit fee when you actually trade with it. We have to get rich,
+    too! (Although I already am, hah!) But don't worry, it's already priced in, so you won't even notice it!
   production:
     time: 600
     amount: 150
