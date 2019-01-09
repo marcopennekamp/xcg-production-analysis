@@ -112,6 +112,7 @@
         amount: 150
       - wareId: claytronics
         amount: 8
+  # Balanced in line with Microchips and Advanced Composites at 2.0 average markup.
   compareTo:
     - microchips
     - advancedcomposites
@@ -146,8 +147,8 @@
         amount: 200
   # Dyes are not as profitable as other intermediate wares, because they're used in the production of another
   # intermediate ware. We don't want to inflate profits too much.
-  # However, Dyes AND Paint taken together have an average markup of a combined ~2.25. This is slightly better, but
-  # still consistent with Microchip production.
+  # However, Dyes AND Paint taken together have an average markup of a combined ~2.25 (1.50 * 1.50). This is slightly
+  # better, but still consistent with Microchip production.
   compareTo:
     - microchips
 # Mixing the paint takes a long time (hence the 20 minutes production time), but doesn’t use a lot of energy.
@@ -249,6 +250,7 @@
         amount: 25
       - wareId: microchips
         amount: 15
+  # Appliances are balanced in line with Antimatter Converters and Furniture at an ~1.70 average markup.
   compareTo:
     - antimatterconverters
     - xcg_furniture
@@ -258,18 +260,19 @@
   price: { min: 250, average: 311, max: 372 }
   production:
     time: 450
-    amount: 160
+    amount: 155
     resources:
       - wareId: energycells
-        amount: 20
+        amount: 25
       - wareId: water
-        amount: 50
+        amount: 60
       - wareId: sunriseflowers
-        amount: 50
+        amount: 60
       - wareId: xcg_cloth
-        amount: 15
+        amount: 10
       - wareId: xcg_chemicals
         amount: 10
+  # Balanced in line with Weapon Components and Medical Supplies (average markup 2.30).
   compareTo:
     - medicalsupplies
     - weaponcomponents
