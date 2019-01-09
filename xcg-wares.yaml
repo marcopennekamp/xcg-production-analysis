@@ -425,3 +425,28 @@
   compareTo:
     - claytronics
     - turretcomponents
+- id: xcg_consumergoods
+  name: Consumer Goods
+  volume: 12
+  price: { min: 995, average: 1203, max: 1410 }
+  production:
+    time: 600
+    amount: 150
+    resources:
+      - wareId: xcg_furniture
+        amount: 20
+      - wareId: xcg_clothing
+        amount: 60
+      - wareId: xcg_decoration
+        amount: 10
+      - wareId: xcg_appliances
+        amount: 5
+      - wareId: xcg_hygienesupplies
+        amount: 100
+      - wareId: xcg_pets
+        amount: 2
+  # Nothing to compare it to, we'll just use a dummy object. The markup of Consumer Goods is constant across min,
+  # average and max, because the packaging adds a constant markup independent of the product prices. The markup is a
+  # constant 1.25.
+  compareTo:
+    - refinedmetals
