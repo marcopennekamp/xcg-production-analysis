@@ -35,7 +35,7 @@
   price: { min: 159, average: 192, max: 225 }
   production:
     time: 300
-    amount: 300
+    amount: 290
     resources:
       - wareId: energycells
         amount: 240
