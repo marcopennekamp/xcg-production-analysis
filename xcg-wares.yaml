@@ -4,12 +4,12 @@
   price: { min: 88, average: 116, max: 144 }
   production:
     time: 1200
-    amount: 600
+    amount: 720
     resources:
       - wareId: energycells
-        amount: 100
+        amount: 125
       - wareId: water
-        amount: 500
+        amount: 525
   # Wood production is balanced in line with Wheat (2.80 average markup).
   compareTo:
     - wheat
