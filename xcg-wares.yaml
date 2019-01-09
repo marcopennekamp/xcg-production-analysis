@@ -366,3 +366,28 @@
   compareTo:
     - claytronics
     - xcg_pets
+- id: xcg_fingerlasers
+  name: Finger Lasers
+  volume: 4
+  price: { min: 612, average: 790, max: 967 }
+  description:
+    Designed by Microcorp to be an ultra-portable self-defense device, Finger Lasers come in packs of four, perfect for
+    one hand armed to the nines or dual-wielding double-shot pistols. Strap on these lasers, activate them and shoot
+    that cheating bastard in the foot! Buy the rainbow pack or single-color packs. Lasers come in red, green, blue,
+    yellow, black and white. Custom paint options available at select retail stores. Also popular as extra high-tech
+    nail extensions!
+  production:
+    time: 600
+    amount: 125
+    resources:
+      - wareId: energycells
+        amount: 50
+      - wareId: refinedmetals
+        amount: 25
+      - wareId: plasmaconductors
+        amount: 20
+      - wareId: xcg_paint
+        amount: 8
+  # Balanced in line with Weapon Components (average markup of 2.30).
+  compareTo:
+    - weaponcomponents
