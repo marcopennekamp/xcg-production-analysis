@@ -390,3 +390,31 @@
   # Balanced in line with Weapon Components (average markup of 2.30).
   compareTo:
     - weaponcomponents
+# The relatively stable price is a design decision.
+- id: xcg_passengertransports
+  name: Passenger Transports
+  volume: 250
+  price: { min: 36720, average: 39049, max: 41378 }
+  production:
+    time: 60
+    amount: 1
+    resources:
+      - wareId: energycells
+        amount: 30
+      - wareId: hullparts
+        amount: 20
+      - wareId: engineparts
+        amount: 5
+      - wareId: xcg_glass
+        amount: 5
+      - wareId: smartchips
+        amount: 5
+      - wareId: xcg_paint
+        amount: 5
+      - wareId: xcg_screens
+        amount: 3
+  # Balanced to be more profitable than Claytronics, because the player has to source so many intermediates and end
+  # products (average markup of 2.00).
+  compareTo:
+    - claytronics
+    - turretcomponents
