@@ -97,14 +97,13 @@
   compareTo:
     - antimattercells
     - refinedmetals
-# Screens have a high volume, because they must be packed especially secure due to their fragility.
 - id: xcg_screens
   name: Screens
-  volume: 24
-  price: { min: 1467, average: 1637, max: 1807 }
+  volume: 8
+  price: { min: 489, average: 546, max: 602 }
   production:
     time: 600
-    amount: 80
+    amount: 240
     resources:
       - wareId: energycells
         amount: 50
@@ -325,14 +324,14 @@
   price: { min: 1828, average: 1914, max: 1999 }
   production:
     time: 900
-    amount: 320
+    amount: 270
     resources:
       - wareId: energycells
-        amount: 200
+        amount: 240
       - wareId: microchips
         amount: 125
       - wareId: xcg_screens
-        amount: 75
+        amount: 120
       - wareId: refinedmetals
         amount: 270
       - wareId: superfluidcoolant
