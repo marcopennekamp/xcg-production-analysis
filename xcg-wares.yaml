@@ -316,6 +316,7 @@
         amount: 200
       - wareId: superfluidcoolant
         amount: 20
+  # Balanced in line with Claytronics (average markup of 1.70).
   compareTo:
     - claytronics
 - id: xcg_computers
@@ -336,6 +337,7 @@
         amount: 270
       - wareId: superfluidcoolant
         amount: 30
+  # Balanced in line with Claytronics (average markup of 1.70).
   compareTo:
     - claytronics
     - xcg_jewelry
@@ -360,6 +362,7 @@
         amount: 200
       - wareId: claytronics
         amount: 300
+  # As explained above, the high profitability leads to an average markup of 2.50.
   compareTo:
     - claytronics
     - xcg_pets
