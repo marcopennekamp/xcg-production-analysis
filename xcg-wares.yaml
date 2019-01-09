@@ -117,7 +117,7 @@
     - advancedcomposites
 - id: xcg_cloth
   name: Cloth
-  volume: 9
+  volume: 8
   price: { min: 477, average: 566, max: 655 }
   production:
     time: 450
