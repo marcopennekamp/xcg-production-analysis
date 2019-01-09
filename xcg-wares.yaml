@@ -10,7 +10,7 @@
         amount: 100
       - wareId: water
         amount: 500
-  # Wood production is balanced in line with Wheat.
+  # Wood production is balanced in line with Wheat (2.80 average markup).
   compareTo:
     - wheat
 # The production uses lots of energy due to electrolysis. The module has an expensive license and is expensive to build,
@@ -27,6 +27,7 @@
         amount: 4600
       - wareId: ore
         amount: 1300
+  # Increased markup (1.30 instead of 1.10) compared to Refined Metals and Teladinium, due to the reasons listed above.
   compareTo:
     - refinedmetals
     - teladianium
@@ -42,7 +43,7 @@
         amount: 240
       - wareId: silicon
         amount: 360
-  # Glass production is balanced in line with Silicon Wafers.
+  # Glass production is balanced in line with Silicon Wafers (1.10 average markup).
   compareTo:
     - siliconwafers
 - id: xcg_fiber
@@ -74,7 +75,7 @@
 # - While production volume is only ⅙ of Antimatter Cells (meaning transporting Chemicals should be easier), this
 #   advantage does not counteract the increased amount of miners that have to be acquired.
 # Because of these points, the blueprint should cost as much as that of Antimatter Cell production, while Chemicals
-# are more profitable than Antimatter Cells (1.30 markup instead of 1.10).
+# are more profitable than Antimatter Cells (1.30 average markup instead of 1.10).
 - id: xcg_chemicals
   name: Chemicals
   volume: 5
@@ -126,6 +127,7 @@
         amount: 120
       - wareId: xcg_fiber
         amount: 450
+  # Cloth production is balanced in line with Microchips (2.0 average markup).
   compareTo:
     - microchips
 # Dyes are not as profitable as other intermediate wares, because they're used in the production of another intermediate
@@ -268,8 +270,8 @@
   compareTo:
     - medicalsupplies
     - weaponcomponents
-# Pets have a markup of 3x. In turn, they take a lot of time to "produce", the module blueprint costs more and
-# pet production requires a license.
+# Pets have an average markup of 3.0. In turn, they take a lot of time to "produce", the module blueprint costs more and
+# pet production requires a license!
 - id: xcg_pets
   name: Pets
   volume: 4
