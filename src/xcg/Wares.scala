@@ -48,7 +48,8 @@ object Wares {
       throw new RuntimeException(s"Parsing xcg-wares.yaml failed with the following error:\n${ message }", underlying)
     }
 
-    val maybeJson = parser.parse(Source.fromFile("xcg-wares.yaml").mkString)
+    val source = Source.fromURL("https://raw.githubusercontent.com/marcopennekamp/xcg/master/xcg-wares.yaml").mkString
+    val maybeJson = parser.parse(source)
     maybeJson match {
       case Left(failure) => fail(failure.message, failure.underlying)
       case Right(json) =>
