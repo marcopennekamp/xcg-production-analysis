@@ -21,6 +21,8 @@ case class Stack(wareId: Id[Ware], amount: Double) {
   lazy val ware: Ware = Wares.get(wareId).get
   lazy val value: Price = ware.price * amount
   lazy val volume: Double = ware.volume * amount
+
+  def *(scalar: Double): Stack = Stack(wareId, amount * scalar)
 }
 
 object Stack {
