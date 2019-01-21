@@ -37,6 +37,8 @@ case class Production(productId: Id[Ware], time: Int, amount: Int, resources: Se
 
   lazy val cyclesPerHour: Double = 3600.0 / time
 
+  lazy val resourcesPerWare: Seq[Stack] = resources.map(_ * (1.0 / amount))
+
   // Construction shorthands for TimedMetrics.
   private val tdm = TimedDoubleMetric.constructor(this)
   private val tpm = TimedPriceMetric.constructor(this)
