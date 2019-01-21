@@ -17,7 +17,7 @@ object Price {
   implicit val priceDecoder: Decoder[Price] = deriveDecoder[Price]
 }
 
-case class Stack(wareId: Id[Ware], amount: Int) {
+case class Stack(wareId: Id[Ware], amount: Double) {
   lazy val ware: Ware = Wares.get(wareId).get
   lazy val value: Price = ware.price * amount
   lazy val volume: Double = ware.volume * amount
