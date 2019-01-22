@@ -30,7 +30,6 @@ class WareUsageReport(consumerGoods: Ware, luxuryGoods: Ware) {
   def renderTable(simplifyIds: Set[Id[Ware]], tableName: String): TypedTag[String] = {
     val consumerUsages = WareUsages(consumerGoods.production.resources).simplify(simplifyIds).stacks
     val luxuryUsages = WareUsages(luxuryGoods.production.resources).simplify(simplifyIds).stacks
-    val combinedUsages = WareUsages(consumerGoods.production.resources ++ luxuryGoods.production.resources).simplify(simplifyIds).stacks
     val unsimplifiedIds = WareUsages.AllIds -- simplifyIds
 
     // Includes unused wares and sorts the resulting stack sequence.
@@ -40,17 +39,19 @@ class WareUsageReport(consumerGoods: Ware, luxuryGoods: Ware) {
       }.toSeq.sortBy(_.ware.name)
     }
 
-    case class Usage(ware: Ware, consumer: Double, luxury: Double, combined: Double)
-    val usages = prepare(consumerUsages).zip(prepare(luxuryUsages)).zip(prepare(combinedUsages)).map {
-      case ((consumer, luxury), combined) => Usage(consumer.ware, consumer.amount, luxury.amount, combined.amount)
+    case class Usage(ware: Ware, consumer: Double, luxury: Double) {
+      val combined5to1: Double = (consumer * 5 + luxury) / 6
+    }
+    val usages = prepare(consumerUsages).zip(prepare(luxuryUsages)).map {
+      case (consumer, luxury)=> Usage(consumer.ware, consumer.amount, luxury.amount)
     }
 
     table(
-      tr(Seq(th(cls := "column-divider")(b(tableName)), th("Consumer Goods"), th("Luxury Goods"), th("Combined"))),
+      tr(Seq(th(cls := "column-divider")(b(tableName)), th("Consumer Goods"), th("Luxury Goods"), th("Combined (Ratio 5:1)"))),
       usages.map { usage =>
         tr(Seq(
           td(cls := "column-divider")(usage.ware.name),
-          tdNumber(usage.consumer), tdNumber(usage.luxury), tdNumber(usage.combined)
+          tdNumber(usage.consumer), tdNumber(usage.luxury), tdNumber(usage.combined5to1)
         ))
       }
     )
